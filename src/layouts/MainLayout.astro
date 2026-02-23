@@ -1,0 +1,150 @@
+---
+import "@/styles/global.css";
+
+interface Props {
+  tittleSlug?: string;
+}
+
+const { tittleSlug } = Astro.props;
+
+const titte = tittleSlug
+  ? `crshort.com — ${tittleSlug}`
+  : "crshort.com — Acorta tus URLs al instante | Link Shortener";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Primary Meta Tags -->
+    <title>{titte}</title>
+    <meta name="title" content={titte} />
+    <meta
+      name="description"
+      content="crshort.com es un acortador de URLs rápido y confiable. Crea links cortos, rastrea clics y comparte en segundos."
+    />
+    <meta
+      name="keywords"
+      content="acortador de urls, url shortener, link corto, acortar link, crshort, short link, link tracker"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="crshort.com" />
+    <meta name="language" content="Spanish" />
+    <link rel="canonical" href="https://crshort.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://crshort.com/" />
+    <meta
+      property="og:title"
+      content="crshort.com — Acorta tus URLs al instante"
+    />
+    <meta
+      property="og:description"
+      content="Crea links cortos, rastrea clics y comparte en segundos."
+    />
+    <meta property="og:image" content="https://crshort.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="crshort.com" />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@crshort" />
+    <meta name="twitter:creator" content="@crshort" />
+    <meta name="twitter:url" content="https://crshort.com/" />
+    <meta
+      name="twitter:title"
+      content="crshort.com — Acorta tus URLs al instante"
+    />
+    <meta
+      name="twitter:description"
+      content="Crea links cortos, rastrea clics y comparte en segundos."
+    />
+    <meta name="twitter:image" content="https://crshort.com/og-image.png" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="msapplication-TileColor" content="#0a0a0a" />
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "crshort.com",
+        "url": "https://crshort.com",
+        "description": "Acortador de URLs gratuito y rápido. Crea links cortos, personaliza tus URLs y rastrea clics.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "2840"
+        }
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "crshort.com",
+        "url": "https://crshort.com",
+        "logo": "https://crshort.com/logo.png",
+        "sameAs": ["https://twitter.com/crshort", "https://github.com/crshort"]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Es gratis crshort.com?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, crshort.com es completamente gratuito."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Puedo personalizar mis links cortos?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí, puedes elegir el sufijo personalizado para tu URL en crshort.com/r/mi-link."
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

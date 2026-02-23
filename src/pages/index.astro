@@ -1,8 +1,10 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 import { Button } from "@/components/ui/button";
+
+export const prerender = true;
 ---
 
-<Layout>
-  <Button> Un boton</Button>
-</Layout>
+<MainLayout>
+  <Button>Un boton</Button>
+</MainLayout>
