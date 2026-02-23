@@ -1,0 +1,15 @@
+---
+import { SignInDialog } from "./sign-in-dialog";
+import { LinkButton } from "./link-button";
+
+const session = Astro.locals.session;
+const user = Astro.locals.user;
+---
+
+{
+  user && session ? (
+    <LinkButton href="/dashboard">Ir al dashboard</LinkButton>
+  ) : (
+    <SignInDialog client:load />
+  )
+}

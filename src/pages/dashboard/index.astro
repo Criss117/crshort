@@ -1,0 +1,10 @@
+---
+const session = Astro.locals.session;
+const user = Astro.locals.user;
+
+export const prerender = false;
+---
+
+<pre>
+  <code>{JSON.stringify({session, user}, null, 2)}</code>
+</pre>

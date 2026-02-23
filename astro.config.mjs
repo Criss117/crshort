@@ -32,6 +32,14 @@ export default defineConfig({
         context: "server",
         access: "public",
       }),
+      GITHUB_CLIENT_ID: envField.string({
+        context: "server",
+        access: "public",
+      }),
+      GITHUB_CLIENT_SECRET: envField.string({
+        context: "server",
+        access: "public",
+      }),
     },
   },
   integrations: [react()],

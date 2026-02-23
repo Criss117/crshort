@@ -2,8 +2,7 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import { Button } from "@/components/ui/button";
 import { LinkButton } from "@/components/link-button";
-
-console.log(Astro.locals);
+import SignInController from "@/components/SignInController.astro";
 ---
 
 <MainLayout>
@@ -52,7 +51,9 @@ console.log(Astro.locals);
           class="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
           >Cómo funciona</a
         >
-        <Button variant="ghost" size="sm">Iniciar sesión</Button>
+        <SignInController server:defer>
+          <LinkButton slot="fallback">Consultando session...</LinkButton>
+        </SignInController>
       </nav>
     </header>
 
