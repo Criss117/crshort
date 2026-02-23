@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/r/:slug"
+  to = "/.netlify/functions/redirects"
+  status = 200  # 200 = rewrite (la URL no cambia), no es una redirección HTTP
