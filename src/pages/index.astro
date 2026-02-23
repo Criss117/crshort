@@ -1,10 +1,404 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import { Button } from "@/components/ui/button";
+import { LinkButton } from "@/components/link-button";
 
 export const prerender = true;
 ---
 
 <MainLayout>
-  <Button>Un boton</Button>
+  <div class="min-h-screen bg-background relative overflow-hidden">
+    <!-- Header -->
+    <header
+      class="flex items-center justify-between px-6 py-4 max-w-6xl mx-auto"
+    >
+      <div class="flex items-center gap-2">
+        <div
+          class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-primary-foreground"
+          >
+            <path
+              d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
+            ></path>
+            <path
+              d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
+            ></path>
+          </svg>
+        </div>
+        <span
+          class="font-bold text-lg tracking-tight"
+          style="font-family: var(--font-sans);">crshort</span
+        >
+      </div>
+      <nav class="flex items-center gap-4">
+        <a
+          href="#features"
+          class="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
+          >Funciones</a
+        >
+        <a
+          href="#how-it-works"
+          class="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
+          >Cómo funciona</a
+        >
+        <Button variant="ghost" size="sm">Iniciar sesión</Button>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="relative z-10 px-6 pt-16 pb-24 max-w-6xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1
+          class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
+          style="font-family: var(--font-sans);"
+        >
+          Acorta tus <span class="text-primary">links</span><br />
+          en segundos
+        </h1>
+
+        <p
+          class="text-lg text-muted-foreground mb-10 max-w-xl mx-auto leading-relaxed"
+        >
+          Transforma URLs largas en enlaces cortos y memorizables. Comparte
+          fácilmente en redes sociales, mensajes y emails.
+        </p>
+
+        <!-- Stats -->
+        <div
+          class="flex items-center justify-center gap-8 mt-12 text-sm text-muted-foreground"
+        >
+          <div class="flex items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-primary"
+            >
+              <path d="M5 12s4-8 9-8 9 8 9 8-4 8-9 8-9-8-9-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span
+              ><strong class="text-foreground">10K+</strong> links creados</span
+            >
+          </div>
+          <div class="flex items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-primary"
+            >
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
+            <span><strong class="text-foreground">99.9%</strong> uptime</span>
+          </div>
+        </div>
+        <div class="mt-5">
+          <LinkButton
+            href="#"
+            variants={{
+              size: "lg",
+            }}
+            className="px-8"
+          >
+            Crear mi primer link
+          </LinkButton>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <section id="features" class="mt-32">
+        <div class="text-center mb-16">
+          <h2
+            class="text-3xl font-bold mb-4"
+            style="font-family: var(--font-sans);"
+          >
+            Todo lo que necesitas
+          </h2>
+          <p class="text-muted-foreground max-w-md mx-auto">
+            Herramientas potentes para gestionar tus enlaces cortos de manera
+            eficiente.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Feature 1 -->
+          <div
+            class="bg-card rounded-2xl p-6 border border-border/50 hover:border-primary/30 transition-colors group"
+          >
+            <div
+              class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-primary"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" x2="12" y1="15" y2="3"></line>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">Descarga instantánea</h3>
+            <p class="text-muted-foreground text-sm leading-relaxed">
+              Comparte tus enlaces al instante. Sin esperas, sin complicaciones.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div
+            class="bg-card rounded-2xl p-6 border border-border/50 hover:border-primary/30 transition-colors group"
+          >
+            <div
+              class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-primary"
+              >
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">Links personalizados</h3>
+            <p class="text-muted-foreground text-sm leading-relaxed">
+              Elige tu propio alias para crear URLs memorizables y
+              profesionales.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div
+            class="bg-card rounded-2xl p-6 border border-border/50 hover:border-primary/30 transition-colors group"
+          >
+            <div
+              class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-primary"
+              >
+                <path d="M3 3v18h18"></path>
+                <path d="m19 9-5 5-4-4-3 3"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">Estadísticas detalladas</h3>
+            <p class="text-muted-foreground text-sm leading-relaxed">
+              Conoce cuántos clics recibe cada enlace, ubicación y dispositivos.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- How it Works -->
+      <section id="how-it-works" class="mt-32">
+        <div class="text-center mb-16">
+          <h2
+            class="text-3xl font-bold mb-4"
+            style="font-family: var(--font-sans);"
+          >
+            Cómo funciona
+          </h2>
+          <p class="text-muted-foreground max-w-md mx-auto">
+            En solo 3 pasos tendrás tu link corto listo para compartir.
+          </p>
+        </div>
+
+        <div
+          class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-4"
+        >
+          <div class="flex flex-col items-center text-center max-w-xs">
+            <div
+              class="w-16 h-16 bg-primary text-primary-foreground rounded-2xl flex items-center justify-center text-2xl font-bold mb-4 shadow-lg"
+            >
+              1
+            </div>
+            <h3 class="font-semibold mb-2">Pega tu URL</h3>
+            <p class="text-muted-foreground text-sm">
+              Copia cualquier enlace largo y pégalo en el campo de arriba.
+            </p>
+          </div>
+
+          <div class="hidden md:block text-muted-foreground">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+          </div>
+
+          <div class="flex flex-col items-center text-center max-w-xs">
+            <div
+              class="w-16 h-16 bg-primary text-primary-foreground rounded-2xl flex items-center justify-center text-2xl font-bold mb-4 shadow-lg"
+            >
+              2
+            </div>
+            <h3 class="font-semibold mb-2">Personaliza (opcional)</h3>
+            <p class="text-muted-foreground text-sm">
+              Añade un alias único o usa el generado automáticamente.
+            </p>
+          </div>
+
+          <div class="hidden md:block text-muted-foreground">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+          </div>
+
+          <div class="flex flex-col items-center text-center max-w-xs">
+            <div
+              class="w-16 h-16 bg-primary text-primary-foreground rounded-2xl flex items-center justify-center text-2xl font-bold mb-4 shadow-lg"
+            >
+              3
+            </div>
+            <h3 class="font-semibold mb-2">¡Comparte!</h3>
+            <p class="text-muted-foreground text-sm">
+              Copia tu link corto y compártelo donde quieras.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="mt-32">
+        <div
+          class="bg-card rounded-3xl p-12 text-center border border-border/50 relative overflow-hidden"
+        >
+          <div
+            class="absolute inset-0 bg-linear-to-br from-primary/5 to-accent/5"
+          >
+          </div>
+          <div class="relative z-10">
+            <h2
+              class="text-3xl font-bold mb-4"
+              style="font-family: var(--font-sans);"
+            >
+              ¿Listo para empezar?
+            </h2>
+            <p class="text-muted-foreground mb-8 max-w-md mx-auto">
+              Únete a miles de usuarios que ya están usando crshort.com para sus
+              enlaces.
+            </p>
+            <div class="flex items-center justify-center gap-4">
+              <Button size="lg" className="px-8">Crear mi primer link</Button>
+              <Button variant="outline" size="lg" className="px-8"
+                >Ver documentación</Button
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-border/50 px-6 py-8">
+      <div
+        class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4"
+      >
+        <div class="flex items-center gap-2">
+          <div
+            class="w-6 h-6 bg-primary rounded-md flex items-center justify-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-primary-foreground"
+            >
+              <path
+                d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
+              ></path>
+              <path
+                d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
+              ></path>
+            </svg>
+          </div>
+          <span class="text-sm text-muted-foreground"
+            >© {new Date().getFullYear()} crshort.com</span
+          >
+        </div>
+        <div class="flex items-center gap-6 text-sm text-muted-foreground">
+          <a href="#" class="hover:text-foreground transition-colors"
+            >Términos</a
+          >
+          <a href="#" class="hover:text-foreground transition-colors"
+            >Privacidad</a
+          >
+          <a href="#" class="hover:text-foreground transition-colors"
+            >Contacto</a
+          >
+        </div>
+      </div>
+    </footer>
+  </div>
 </MainLayout>
