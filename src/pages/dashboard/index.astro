@@ -2,7 +2,9 @@
 const session = Astro.locals.session;
 const user = Astro.locals.user;
 
-export const prerender = false;
+if (!user || !session) {
+  return Astro.redirect("/");
+}
 ---
 
 <pre>

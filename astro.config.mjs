@@ -44,4 +44,6 @@ export default defineConfig({
   },
   integrations: [react()],
   adapter: netlify(),
+  prefetch: true,
+  output: "server",
 });

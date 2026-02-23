@@ -13,12 +13,24 @@ import { Google } from "./icons/google";
 import { authClient } from "@/lib/auth-client";
 
 export function SignInDialog() {
+  const [isPending, setIsPending] = useState(false);
   const [open, setOpen] = useState(false);
 
   const signInGithub = () => {
-    authClient.signIn.social({
-      provider: "github",
-    });
+    authClient.signIn.social(
+      {
+        provider: "github",
+      },
+      {
+        onSuccess: () => {
+          setIsPending(false);
+          setOpen(false);
+        },
+        onError: () => {
+          setIsPending(false);
+        },
+      },
+    );
   };
 
   return (
@@ -38,6 +50,7 @@ export function SignInDialog() {
           <Button
             variant="outline"
             className="w-full h-11 gap-2"
+            disabled={isPending}
             onClick={() => {
               signInGithub();
             }}
@@ -51,6 +64,7 @@ export function SignInDialog() {
           <Button
             variant="outline"
             className="w-full h-11 gap-2"
+            disabled={isPending}
             onClick={() => {}}
           >
             <Google className="size-4" />
