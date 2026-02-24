@@ -1,10 +1,7 @@
 import { db } from "@/lib/db";
-import { link } from "@/lib/schemas/links.schema";
-import { getActionState } from "@astrojs/react/actions";
-import type { SafeResult } from "astro/actions/runtime/shared.js";
-import { ActionError, defineAction } from "astro:actions";
-import { z } from "astro:schema";
 import { and, desc, eq } from "drizzle-orm";
+import { link } from "@/lib/schemas/links.schema";
+import { ActionError, defineAction } from "astro:actions";
 import { createLinkValidator } from "./validators";
 
 export const linkActions = {

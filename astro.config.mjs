@@ -1,16 +1,25 @@
 // @ts-check
+import path from "node:path";
+import url from "node:url";
 import { defineConfig, envField } from "astro/config";
-
 import tailwindcss from "@tailwindcss/vite";
 
 import react from "@astrojs/react";
 
 import netlify from "@astrojs/netlify";
+import { resolve } from "node:path";
+
+const _dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        "@": resolve(_dirname, "./src"),
+      },
+    },
   },
   env: {
     schema: {
