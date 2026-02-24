@@ -7,9 +7,10 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 
 import netlify from "@astrojs/netlify";
-import { resolve } from "node:path";
 
 const _dirname = path.dirname(url.fileURLToPath(import.meta.url));
+
+console.log(path.resolve(_dirname, "src"));
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,7 +18,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
     resolve: {
       alias: {
-        "@": resolve(_dirname, "./src"),
+        "@": path.resolve(_dirname, "src"),
       },
     },
   },
