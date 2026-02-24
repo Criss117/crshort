@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from "astro:env/server";
-import { db } from "./db";
+import { db } from "@/lib/db";
 import * as authSchemas from "@/lib/schemas/auth.schema";
 
 export const auth = betterAuth({
