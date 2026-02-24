@@ -4,7 +4,7 @@ import { getActionState } from "@astrojs/react/actions";
 import type { SafeResult } from "astro/actions/runtime/shared.js";
 import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro:schema";
-import { and, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { createLinkValidator } from "./validators";
 
 export const linkActions = {
@@ -22,7 +22,8 @@ export const linkActions = {
       const links = await db
         .select()
         .from(link)
-        .where(and(eq(link.userId, user.id)));
+        .where(and(eq(link.userId, user.id)))
+        .orderBy(desc(link.createdAt));
 
       return links;
     },
