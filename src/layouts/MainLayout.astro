@@ -1,4 +1,5 @@
 ---
+import { Toaster } from "@/components/ui/sonner";
 import "@/styles/global.css";
 
 interface Props {
@@ -146,5 +147,6 @@ const titte = tittleSlug
   </head>
   <body>
     <slot />
+    <Toaster client:idle />
   </body>
 </html>

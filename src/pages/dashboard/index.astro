@@ -1,12 +1,25 @@
 ---
+import { actions } from "astro:actions";
+import { CreateLink } from "@/components/create-link";
+import MainLayout from "@/layouts/MainLayout.astro";
+
 const session = Astro.locals.session;
 const user = Astro.locals.user;
 
 if (!user || !session) {
   return Astro.redirect("/");
 }
+
+const { data: links, error } = await Astro.callAction(
+  actions.linkActions.findAll,
+  {},
+);
+
+if (error) {
+  console.error(error);
+}
 ---
 
-<pre>
-  <code>{JSON.stringify({session, user}, null, 2)}</code>
-</pre>
+<MainLayout>
+  <!-- <CreateLink client:load /> -->
+</MainLayout>
