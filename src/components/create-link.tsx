@@ -1,4 +1,4 @@
-import { useTransition } from "react";
+import { useId, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { actions } from "astro:actions";
 import { useForm } from "@tanstack/react-form";
@@ -12,9 +12,19 @@ import {
   FieldGroup,
   FieldLabel,
 } from "./ui/field";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogTrigger,
+} from "./ui/dialog";
+import { PlusIcon } from "lucide-react";
 
 export function CreateLink() {
+  const formId = `create-link-form-${useId()}`;
   const [isPending, startTransition] = useTransition();
+  const [open, setOpen] = useState(false);
 
   const form = useForm({
     defaultValues: {
@@ -37,50 +47,75 @@ export function CreateLink() {
         } else {
           toast.success(`Link ${data.url} creado exitosamente`);
           form.reset();
+          setOpen(false);
         }
       });
     },
   });
 
   return (
-    <form
-      className="flex w-xl"
-      onSubmit={(e) => {
-        e.preventDefault();
-        form.handleSubmit();
+    <Dialog
+      open={open}
+      onOpenChange={(v) => {
+        if (!v) form.reset();
+
+        setOpen(v);
       }}
     >
-      <FieldGroup>
-        <form.Field
-          name="url"
-          children={(field) => {
-            const isInvalid =
-              field.state.meta.isTouched && !field.state.meta.isValid;
-            return (
-              <Field data-invalid={isInvalid}>
-                <FieldLabel htmlFor={field.name}>Nuevo link</FieldLabel>
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  aria-invalid={isInvalid}
-                  placeholder="https://crshort.com/new-link"
-                  autoComplete="off"
-                />
-                <FieldDescription>
-                  Ingrese el link que desea acortar
-                </FieldDescription>
-                {isInvalid && <FieldError errors={field.state.meta.errors} />}
-              </Field>
-            );
+      <DialogTrigger>
+        <Button>
+          <PlusIcon />
+          Nuevo Link
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <form
+          id={formId}
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
           }}
-        />
-      </FieldGroup>
-      <Button type="submit" disabled={isPending}>
-        Submit
-      </Button>
-    </form>
+        >
+          <FieldGroup>
+            <form.Field
+              name="url"
+              children={(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel htmlFor={field.name}>Nuevo link</FieldLabel>
+                    <Input
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      aria-invalid={isInvalid}
+                      placeholder="https://crshort.com/new-link"
+                      autoComplete="off"
+                    />
+                    <FieldDescription>
+                      Ingrese el link que desea acortar
+                    </FieldDescription>
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
+                  </Field>
+                );
+              }}
+            />
+          </FieldGroup>
+        </form>
+        <DialogFooter>
+          <DialogClose>
+            <Button variant="secondary">Cancelar</Button>
+          </DialogClose>
+          <Button type="submit" disabled={isPending} form={formId}>
+            Crear Link
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
