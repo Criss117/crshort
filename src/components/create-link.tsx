@@ -1,7 +1,9 @@
 import { useId, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { actions } from "astro:actions";
+import { PlusIcon } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
+
 import { createLinkValidator } from "@/actions/validators";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -19,9 +21,13 @@ import {
   DialogFooter,
   DialogTrigger,
 } from "./ui/dialog";
-import { PlusIcon } from "lucide-react";
+import { $links, addLink } from "@/store/links.store";
 
-export function CreateLink() {
+interface Props {
+  label?: string;
+}
+
+export function CreateLink({ label = "Crear enlace" }: Props) {
   const formId = `create-link-form-${useId()}`;
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
@@ -42,13 +48,16 @@ export function CreateLink() {
         });
 
         toast.dismiss(toastLoadingId);
+
         if (error) {
           toast.error(error.message);
-        } else {
-          toast.success(`Link ${data.url} creado exitosamente`);
-          form.reset();
-          setOpen(false);
+          return;
         }
+
+        addLink(data);
+        toast.success(`Link ${data.url} creado exitosamente`);
+        form.reset();
+        setOpen(false);
       });
     },
   });
@@ -62,10 +71,10 @@ export function CreateLink() {
         setOpen(v);
       }}
     >
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button>
           <PlusIcon />
-          Nuevo Link
+          {label}
         </Button>
       </DialogTrigger>
       <DialogContent>

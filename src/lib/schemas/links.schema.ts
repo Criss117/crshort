@@ -72,3 +72,11 @@ export const linkTag = sqliteTable(
   },
   (t) => [index("link_tag_ids_idx").on(t.linkId, t.tagId)],
 );
+
+export type LinkSelect = typeof link.$inferSelect;
+export type TagSelect = typeof tag.$inferSelect;
+export type LinkTagSelect = typeof linkTag.$inferSelect;
+
+export type LinkInsert = typeof link.$inferInsert;
+export type TagInsert = typeof tag.$inferInsert;
+export type LinkTagInsert = typeof linkTag.$inferInsert;

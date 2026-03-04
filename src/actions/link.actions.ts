@@ -1,8 +1,8 @@
 import { db } from "@/lib/db";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import { link } from "@/lib/schemas/links.schema";
 import { ActionError, defineAction } from "astro:actions";
-import { createLinkValidator } from "./validators";
+import { createLinkValidator, deleteLinksValidator } from "./validators";
 
 export const linkActions = {
   findAll: defineAction({
@@ -50,6 +50,32 @@ export const linkActions = {
         .returning();
 
       return newLink;
+    },
+  }),
+
+  delete: defineAction({
+    input: deleteLinksValidator,
+    handler: async (input, context) => {
+      const user = context.locals.user;
+
+      if (!user) {
+        throw new ActionError({
+          code: "UNAUTHORIZED",
+          message: "Unauthorized",
+        });
+      }
+
+      await db.delete(link).where(
+        and(
+          eq(link.userId, user.id),
+          inArray(
+            link.id,
+            input.map((i) => i.id),
+          ),
+        ),
+      );
+
+      return;
     },
   }),
 };
