@@ -1,4 +1,8 @@
-import { Button, InputGroup, TextField, Select, ListBox } from '@heroui/react';
+import { Button } from '@heroui/react/button';
+import { InputGroup } from '@heroui/react/input-group';
+import { TextField } from '@heroui/react/textfield';
+import { Select } from '@heroui/react/select';
+import { ListBox } from '@heroui/react/list-box';
 import { FunnelIcon, SearchIcon, XIcon } from 'lucide-react';
 
 import { useFilters } from '@/application/store/filters.store';

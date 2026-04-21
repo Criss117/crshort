@@ -1,16 +1,14 @@
 import { useId, useState } from 'react';
 import { LinkIcon, PlusIcon } from 'lucide-react';
 import { useForm } from '@tanstack/react-form';
-import {
-  Button,
-  Modal,
-  Form,
-  TextField,
-  FieldError,
-  Input,
-  Description,
-  toast,
-} from '@heroui/react';
+import { Button } from '@heroui/react/button';
+import { Modal } from '@heroui/react/modal';
+import { Form } from '@heroui/react/form';
+import { TextField } from '@heroui/react/textfield';
+import { FieldError } from '@heroui/react/field-error';
+import { Input } from '@heroui/react/input';
+import { Description } from '@heroui/react/description';
+import { toast } from '@heroui/react/toast';
 import { Label } from '@heroui/react/label';
 
 import { createLinkValidator } from '@/application/validators/link.validators';

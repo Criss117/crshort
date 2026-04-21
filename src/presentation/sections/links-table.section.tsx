@@ -1,4 +1,4 @@
-import { Button } from '@heroui/react';
+import { Button } from '@heroui/react/button';
 import { Table } from '@heroui/react/table';
 import {
   ChartSpline,

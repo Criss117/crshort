@@ -1,6 +1,7 @@
 import { useLayoutEffect, useState } from 'react';
 import { MoonIcon, SunIcon } from 'lucide-react';
-import { Button, Switch } from '@heroui/react';
+import { Button } from '@heroui/react/button';
+import { Switch } from '@heroui/react/switch';
 
 function toogleTheme(onChange?: (theme: 'dark' | 'light') => void) {
   const theme = localStorage.getItem('crshort-theme');
