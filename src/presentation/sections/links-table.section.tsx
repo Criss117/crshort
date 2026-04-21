@@ -1,5 +1,3 @@
-import { Button } from '@heroui/react/button';
-import { Table } from '@heroui/react/table';
 import {
   ChartSpline,
   CopyIcon,
@@ -7,6 +5,10 @@ import {
   PencilIcon,
   TrashIcon,
 } from 'lucide-react';
+
+import { Button } from '@heroui/react/button';
+import { Table } from '@heroui/react/table';
+
 import type { LinkSelect } from '@/integrations/db/schemas/links.schema';
 
 interface Props {

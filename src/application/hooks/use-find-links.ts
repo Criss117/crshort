@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
+
 import { findAllLinksQueryOptions } from '@/application/queries/link.queries';
 import type { GroupByType } from '@/application/store/filters.store';
 

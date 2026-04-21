@@ -1,5 +1,6 @@
-import type { LinkSelect } from '@/integrations/db/schemas/links.schema';
 import { ChartLine, CheckCircle, LinkIcon } from 'lucide-react';
+
+import type { LinkSelect } from '@/integrations/db/schemas/links.schema';
 
 interface Props {
   links: LinkSelect[];

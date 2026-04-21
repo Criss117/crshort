@@ -1,5 +1,6 @@
 import { useLayoutEffect, useState } from 'react';
 import { MoonIcon, SunIcon } from 'lucide-react';
+
 import { Button } from '@heroui/react/button';
 import { Switch } from '@heroui/react/switch';
 

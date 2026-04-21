@@ -1,5 +1,6 @@
-import { MINUTE } from '@/lib/constants';
 import { QueryClient } from '@tanstack/react-query';
+
+import { MINUTE } from '@/lib/constants';
 
 export function getContext() {
   const queryClient = new QueryClient({

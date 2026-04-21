@@ -3,6 +3,7 @@ import { tanstackStartCookies } from 'better-auth/tanstack-start';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 import { db } from '@/integrations/db';
+
 import { serverEnv } from '@/lib/config';
 
 export const auth = betterAuth({

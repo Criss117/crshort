@@ -6,10 +6,12 @@ import {
 } from '@tanstack/react-router';
 import { LinkIcon } from 'lucide-react';
 
-import { getSessionQueryOptions } from '@/application/queries/auth.queries';
+import { Toast } from '@heroui/react/toast';
+
 import { UserButton } from '@/presentation/components/user-button';
 import { CreateLink } from '@/presentation/components/create-link';
-import { Toast } from '@heroui/react/toast';
+
+import { getSessionQueryOptions } from '@/application/queries/auth.queries';
 import { findAllLinksQueryOptions } from '@/application/queries/link.queries';
 
 export const Route = createFileRoute('/(private)/dashboard')({

@@ -1,7 +1,8 @@
 import { sql } from 'drizzle-orm';
 import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { v7 } from 'uuid';
-import { user } from './auth.schema';
+
+import { user } from '@/integrations/db/schemas/auth.schema';
 
 const uuidV7 = text('id')
   .primaryKey()

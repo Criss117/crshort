@@ -2,6 +2,7 @@ import { createMiddleware } from '@tanstack/react-start';
 import { getRequestHeaders } from '@tanstack/react-start/server';
 
 import { auth } from '@/integrations/better-auth/auth';
+
 import { MINUTE } from '@/lib/constants';
 import { MemoryRateLimiter } from '@/lib/rate-limiter';
 

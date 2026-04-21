@@ -9,8 +9,8 @@ import { Avatar } from '@heroui/react/avatar';
 import { Dropdown } from '@heroui/react/dropdown';
 import { Separator } from '@heroui/react/separator';
 
-import { getSessionQueryOptions } from '@/application/queries/auth.queries';
 import { authClient } from '@/integrations/better-auth/auth-client';
+import { getSessionQueryOptions } from '@/application/queries/auth.queries';
 import { ToogleThemeSwitch } from '@/presentation/components/toogle-theme';
 
 interface Props {
