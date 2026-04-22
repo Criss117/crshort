@@ -1,6 +1,6 @@
-import { Button } from '@heroui/react';
 import { CopyIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { Button } from './ui/button';
 
 interface Props {
   text: string;
@@ -33,9 +33,8 @@ export function CopyButton({ text, isDisabled = false }: Props) {
   return (
     <Button
       variant="ghost"
-      size="sm"
-      isIconOnly
-      isDisabled={isCopied || isDisabled}
+      size="icon"
+      disabled={isCopied || isDisabled}
       onClick={onCopy}
     >
       <CopyIcon />

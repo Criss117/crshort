@@ -1,12 +1,10 @@
-"use client";
-
-import { Link } from "@heroui/react";
+import { Link } from '@tanstack/react-router';
 
 export function NotFoundScreen() {
   return (
     <main className="relative flex min-h-[70vh] flex-col items-center justify-center overflow-hidden px-4">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-bg-secondary via-bg to-bg" />
-      
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-bg-secondary via-bg to-bg" />
+
       <div className="relative">
         <span className="block font-mono text-[0.875rem] tracking-[0.5em] text-muted uppercase">
           Error
@@ -30,7 +28,7 @@ export function NotFoundScreen() {
 
       <Link
         className="mt-10 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
-        href="/"
+        to="/"
       >
         Return home
         <svg

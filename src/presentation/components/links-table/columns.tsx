@@ -1,12 +1,13 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { ChartSpline } from 'lucide-react';
-import { Button } from '@heroui/react/button';
 
 import type { LinkSelect } from '@/integrations/db/schemas/links.schema';
 
-import { CopyButton } from '@/presentation/components/copy-button';
 import { LinkTableActions } from './actions';
 import { shortUrl } from '@/lib/utils';
+import { CopyButton } from '@/presentation/components/copy-button';
+import { Button } from '@/presentation/components/ui/button';
+import { Badge } from '../ui/badge';
 
 export const columnHelper = createColumnHelper<LinkSelect>();
 
@@ -70,15 +71,15 @@ export const columns = [
       return (
         <>
           {isActive ? (
-            <span className="inline-flex items-center justify-around gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium bg-green-500/10 text-green-600 dark:text-green-400 w-20">
-              <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+            <Badge variant="outline">
+              <span className="w-1.5 h-1.5 bg-primary rounded-full" />
               Activo
-            </span>
+            </Badge>
           ) : (
-            <span className="inline-flex items-center justify-around gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium bg-accent-foreground text-white w-20">
-              <span className="w-1.5 h-1.5 bg-danger rounded-full" />
+            <Badge variant="secondary">
+              <span className="w-1.5 h-1.5 bg-destructive rounded-full" />
               Inactivo
-            </span>
+            </Badge>
           )}
         </>
       );
@@ -96,8 +97,7 @@ export const columns = [
         <Button
           className="p-2 hover:bg-muted rounded-lg transition-colors"
           variant="ghost"
-          size="sm"
-          isIconOnly
+          size="icon"
         >
           <ChartSpline />
         </Button>

@@ -1,12 +1,17 @@
 import { FunnelIcon, SearchIcon, XIcon } from 'lucide-react';
 
-import { Button } from '@heroui/react/button';
-import { InputGroup } from '@heroui/react/input-group';
-import { TextField } from '@heroui/react/textfield';
-import { Select } from '@heroui/react/select';
-import { ListBox } from '@heroui/react/list-box';
-
 import { useFilters } from '@/application/store/filters.store';
+
+import { Input } from '@/presentation/components/ui/input';
+import { Button } from '@/presentation/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/presentation/components/ui/select';
 
 const Filters = {
   all: {
@@ -29,76 +34,68 @@ export function LinksFiltersSection() {
   return (
     <section className="flex flex-col sm:flex-row gap-3 mb-6">
       <div className="w-3/4">
-        <TextField
-          name="search"
-          onChange={(v) =>
-            dispatch({
-              type: 'set:query',
-              payload: v,
-            })
-          }
-        >
-          <InputGroup>
-            <InputGroup.Prefix>
-              <SearchIcon className="size-4 text-muted" />
-            </InputGroup.Prefix>
-            <InputGroup.Input
-              value={filters.query}
-              className="w-full"
-              placeholder="Buscar en los enlaces"
-            />
-            <InputGroup.Suffix>
-              <Button
-                variant="ghost"
-                size="sm"
-                isIconOnly
-                onClick={() =>
-                  dispatch({
-                    type: 'reset:query',
-                  })
-                }
-              >
-                <XIcon />
-              </Button>
-            </InputGroup.Suffix>
-          </InputGroup>
-        </TextField>
+        <div className="relative">
+          <Button
+            className="absolute left-0"
+            size="icon"
+            disabled
+            variant="ghost"
+          >
+            <SearchIcon className="size-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute right-0"
+            onClick={() =>
+              dispatch({
+                type: 'reset:query',
+              })
+            }
+          >
+            <XIcon />
+          </Button>
+          <Input
+            value={filters.query}
+            className="w-full pl-8"
+            placeholder="Buscar en los enlaces"
+            onChange={(v) =>
+              dispatch({
+                type: 'set:query',
+                payload: v.target.value,
+              })
+            }
+          />
+        </div>
       </div>
       <div className="flex gap-2 w-1/4 items-center">
         <Select
-          placeholder="Seleccionar filtro"
-          className="w-full"
-          defaultValue="all"
           value={filters.group}
-          onChange={(v) => {
+          defaultValue="all"
+          onValueChange={(v) => {
             if (!v) return;
-
             dispatch({
               type: 'set:group',
-              payload: v?.toString(),
+              payload: v,
             });
           }}
         >
-          <Select.Trigger>
-            <Select.Value />
-            <Select.Indicator />
-          </Select.Trigger>
-          <Select.Popover>
-            <ListBox>
+          <SelectTrigger className="flex-1">
+            <SelectValue placeholder="Group">
+              {Filters[filters.group].label}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
               {Object.values(Filters).map((filter) => (
-                <ListBox.Item
-                  id={filter.value}
-                  textValue={filter.label}
-                  key={filter.value}
-                >
+                <SelectItem key={filter.value} value={filter.value}>
                   {filter.label}
-                  <ListBox.ItemIndicator />
-                </ListBox.Item>
+                </SelectItem>
               ))}
-            </ListBox>
-          </Select.Popover>
+            </SelectGroup>
+          </SelectContent>
         </Select>
-        <Button variant="outline" size="sm" isIconOnly>
+        <Button variant="outline" size="icon">
           <FunnelIcon />
         </Button>
       </div>

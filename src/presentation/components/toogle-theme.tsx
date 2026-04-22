@@ -1,9 +1,9 @@
 import { useLayoutEffect, useState } from 'react';
 import { MoonIcon, SunIcon } from 'lucide-react';
 
-import { Button } from '@heroui/react/button';
-import { Switch } from '@heroui/react/switch';
-import { cn } from '@heroui/styles';
+import { Button } from './ui/button';
+import { cn } from '@/lib/utils';
+import { Switch } from './ui/switch';
 
 function toogleTheme(onChange?: (theme: 'dark' | 'light') => void) {
   const theme = localStorage.getItem('crshort-theme');
@@ -28,8 +28,7 @@ export function ToogleThemeButton() {
     <Button
       id="theme-toggle"
       variant="ghost"
-      size="sm"
-      isIconOnly
+      size="icon"
       onClick={() => toogleTheme()}
     >
       <SunIcon className="hidden dark:block" />
@@ -51,22 +50,16 @@ export function ToogleThemeSwitch({ className }: ToogleThemeSwitchProps) {
 
   return (
     <div
-      onClick={() => toogleTheme(setTheme)}
+      onClick={(e) => {
+        e.stopPropagation();
+        toogleTheme(setTheme);
+      }}
       className={cn('w-full flex flex-row justify-between', className)}
     >
       <Switch
-        isSelected={theme === 'dark'}
-        onChange={() => toogleTheme(setTheme)}
-      >
-        <Switch.Control>
-          <Switch.Thumb className="bg-white">
-            <Switch.Icon>
-              <SunIcon className="size-3 hidden dark:block text-black" />
-              <MoonIcon className="size-3 dark:hidden" />
-            </Switch.Icon>
-          </Switch.Thumb>
-        </Switch.Control>
-      </Switch>
+        checked={theme === 'dark'}
+        onCheckedChange={() => toogleTheme(setTheme)}
+      />
       <p>Apariencia</p>
     </div>
   );

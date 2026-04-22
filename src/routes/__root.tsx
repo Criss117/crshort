@@ -11,6 +11,7 @@ import TanStackQueryDevtools from '../integrations/tanstack-query/devtools';
 import appCss from '../styles.css?url';
 
 import type { QueryClient } from '@tanstack/react-query';
+import { Toaster } from '@/presentation/components/ui/sonner';
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -57,7 +58,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
+    <html suppressHydrationWarning lang="es">
       <head>
         <HeadContent />
       </head>
@@ -75,6 +76,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             TanStackQueryDevtools,
           ]}
         />
+        <Toaster />
         <Scripts />
       </body>
     </html>

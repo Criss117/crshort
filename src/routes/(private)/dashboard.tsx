@@ -6,8 +6,6 @@ import {
 } from '@tanstack/react-router';
 import { LinkIcon } from 'lucide-react';
 
-import { Toast } from '@heroui/react/toast';
-
 import { UserButton } from '@/presentation/components/user-button';
 import { CreateLink } from '@/presentation/components/create-link';
 
@@ -65,7 +63,6 @@ function RouteComponent() {
       <main className="px-6 max-w-7xl mx-auto">
         <Outlet />
       </main>
-      <Toast.Provider placement="top" />
     </div>
   );
 }
