@@ -45,8 +45,8 @@ export function UserButton({ user }: Props) {
         <Dropdown.Menu selectionMode="multiple">
           <Dropdown.Section>
             <Header>Preferencias</Header>
-            <Dropdown.Item>
-              <ToogleThemeSwitch />
+            <Dropdown.Item className="p-0 min-h-0">
+              <ToogleThemeSwitch className="menu-item menu-item--default" />
             </Dropdown.Item>
           </Dropdown.Section>
           <Separator />

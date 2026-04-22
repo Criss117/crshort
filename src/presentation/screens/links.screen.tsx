@@ -1,8 +1,8 @@
 import { useFindLinks } from '@/application/hooks/use-find-links';
 
-import { LinksTableSection } from '@/presentation/sections/links-table.section';
 import { LinksHeaderSection } from '@/presentation/sections/links-header.section';
 import { LinksFiltersSection } from '@/presentation/sections/links-filters.section';
+import { LinksTable } from '@/presentation/components/links-table';
 
 import { FiltersProvider, useFilters } from '@/application/store/filters.store';
 
@@ -18,7 +18,7 @@ function FilteredSections() {
   return (
     <>
       <LinksFiltersSection />
-      <LinksTableSection links={links} />
+      <LinksTable links={links} />
     </>
   );
 }

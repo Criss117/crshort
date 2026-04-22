@@ -1,6 +1,6 @@
 import { drizzle } from 'drizzle-orm/libsql';
 
-import { serverEnv } from '@/lib/config';
+import { serverEnv } from '@/lib/config/server';
 
 import * as authSchema from './schemas/auth.schema';
 

@@ -4,7 +4,7 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 import { db } from '@/integrations/db';
 
-import { serverEnv } from '@/lib/config';
+import { serverEnv } from '@/lib/config/server';
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {

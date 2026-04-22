@@ -16,7 +16,11 @@ import { createLinkValidator } from '@/application/validators/link.validators';
 import { useMutateLinks } from '@/application/hooks/use-mutate-links';
 import { SECOND } from '@/lib/constants';
 
-export function CreateLink() {
+interface Props {
+  label?: string;
+}
+
+export function CreateLink({ label }: Props) {
   const formId = `create-link-form-${useId()}`;
   const [open, setOpen] = useState(false);
   const { create } = useMutateLinks();
@@ -65,11 +69,11 @@ export function CreateLink() {
     >
       <Button>
         <PlusIcon />
-        Crear Enlace
+        {label || 'Crear Enlace'}
       </Button>
       <Modal.Backdrop variant="blur">
         <Modal.Container>
-          <Modal.Dialog>
+          <Modal.Dialog className="bg-background min-w-120">
             <Modal.CloseTrigger />
             <Modal.Header className="flex flex-row items-center gap-x-2">
               <Modal.Icon>

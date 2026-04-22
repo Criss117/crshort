@@ -37,8 +37,6 @@ export const requiredAuthMiddleware = createMiddleware()
 
     if (!result.allowed) throw new Error('Rate limit exceeded');
 
-    console.log(limiter.store);
-
     return next({
       context: {
         session,

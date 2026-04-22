@@ -3,6 +3,7 @@ import { MoonIcon, SunIcon } from 'lucide-react';
 
 import { Button } from '@heroui/react/button';
 import { Switch } from '@heroui/react/switch';
+import { cn } from '@heroui/styles';
 
 function toogleTheme(onChange?: (theme: 'dark' | 'light') => void) {
   const theme = localStorage.getItem('crshort-theme');
@@ -16,6 +17,10 @@ function toogleTheme(onChange?: (theme: 'dark' | 'light') => void) {
     localStorage.setItem('crshort-theme', 'dark');
     onChange?.('dark');
   }
+}
+
+interface ToogleThemeSwitchProps {
+  className?: string;
 }
 
 export function ToogleThemeButton() {
@@ -33,7 +38,7 @@ export function ToogleThemeButton() {
   );
 }
 
-export function ToogleThemeSwitch() {
+export function ToogleThemeSwitch({ className }: ToogleThemeSwitchProps) {
   const [theme, setTheme] = useState<'dark' | 'light'>('light');
 
   useLayoutEffect(() => {
@@ -47,7 +52,7 @@ export function ToogleThemeSwitch() {
   return (
     <div
       onClick={() => toogleTheme(setTheme)}
-      className="w-full flex flex-row justify-between"
+      className={cn('w-full flex flex-row justify-between', className)}
     >
       <Switch
         isSelected={theme === 'dark'}

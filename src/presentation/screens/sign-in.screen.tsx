@@ -1,21 +1,27 @@
 import { Link } from '@tanstack/react-router';
 import { Button } from '@heroui/react/button';
 
-import { authClient } from '@/integrations/better-auth/auth-client';
-
 import { GoogleIcon } from '@/presentation/components/icons/google';
 import { GitHubIcon } from '@/presentation/components/icons/github';
-
-async function handleSignIn(provider: 'github' | 'google') {
-  const data = await authClient.signIn.social({
-    provider,
-    callbackURL: '/dashboard',
-  });
-
-  console.log(data);
-}
+import { useAuth } from '@/application/hooks/use-auth';
+import { useState } from 'react';
 
 export function SignInScreen() {
+  const { signIn } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignIn = async (provider: 'github' | 'google') => {
+    setIsLoading(true);
+    signIn.mutate(
+      { provider },
+      {
+        onError: () => {
+          setIsLoading(false);
+        },
+      },
+    );
+  };
+
   return (
     <div className="flex items-center justify-center flex-1">
       <div className="w-full max-w-sm">
@@ -42,6 +48,7 @@ export function SignInScreen() {
             variant="tertiary"
             onPress={() => handleSignIn('github')}
             className="h-12"
+            isDisabled={isLoading}
           >
             <GitHubIcon />
             Continuar con GitHub

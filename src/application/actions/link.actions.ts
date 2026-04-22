@@ -60,3 +60,43 @@ export const deleteManyLinksAction = createServerFn()
       ),
     );
   });
+
+export const disableManyLinksAction = createServerFn()
+  .middleware([requiredAuthMiddleware])
+  .inputValidator(deleteLinksValidator)
+  .handler(async ({ context, data }) => {
+    const user = context.session.user;
+
+    await db
+      .update(link)
+      .set({ isActive: false })
+      .where(
+        and(
+          eq(link.userId, user.id),
+          inArray(
+            link.id,
+            data.map((i) => i.id),
+          ),
+        ),
+      );
+  });
+
+export const enableManyLinksAction = createServerFn()
+  .middleware([requiredAuthMiddleware])
+  .inputValidator(deleteLinksValidator)
+  .handler(async ({ context, data }) => {
+    const user = context.session.user;
+
+    await db
+      .update(link)
+      .set({ isActive: true })
+      .where(
+        and(
+          eq(link.userId, user.id),
+          inArray(
+            link.id,
+            data.map((i) => i.id),
+          ),
+        ),
+      );
+  });

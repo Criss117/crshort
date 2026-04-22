@@ -3,7 +3,7 @@ import { and, eq, sql } from 'drizzle-orm';
 
 import { db } from '@/integrations/db';
 import { link } from '@/integrations/db/schemas/links.schema';
-import { serverEnv } from '@/lib/config';
+import { serverEnv } from '@/lib/config/server';
 
 async function updateLinkStats(id: string) {
   await db
