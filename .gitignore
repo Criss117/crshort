@@ -17,3 +17,5 @@ todos.json
 *db-wal
 
 .agents
+# Local Netlify folder
+.netlify
