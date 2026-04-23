@@ -96,7 +96,7 @@ export function LinkTableActions({ link }: Props) {
             size="icon"
             {...props}
           >
-            <SettingsIcon className="text-destructive" />
+            <SettingsIcon />
           </Button>
         )}
       />
