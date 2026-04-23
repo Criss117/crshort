@@ -1,5 +1,5 @@
 import { createServerFn } from '@tanstack/react-start';
-import { and, desc, eq, inArray } from 'drizzle-orm';
+import { and, desc, eq, inArray, or } from 'drizzle-orm';
 
 import { db } from '@/integrations/db';
 import { link } from '@/integrations/db/schemas/links.schema';
@@ -16,6 +16,25 @@ export const createLinkAction = createServerFn()
   .handler(async ({ context, data }) => {
     const user = context.session.user;
 
+    if (data.customSlug) {
+      const exisingLink = await db
+        .select({
+          id: link.id,
+        })
+        .from(link)
+        .where(
+          or(
+            eq(link.customSlug, data.customSlug.toLowerCase()),
+            eq(link.slug, data.customSlug.toLowerCase()),
+          ),
+        )
+        .limit(1);
+
+      if (exisingLink.length > 0) {
+        throw new Error('El slug personalizado ya está en uso');
+      }
+    }
+
     const slug = Math.random().toString(36).substring(2, 8);
 
     const [newLink] = await db
@@ -23,6 +42,7 @@ export const createLinkAction = createServerFn()
       .values({
         userId: user.id,
         url: data.url,
+        customSlug: data.customSlug?.toLowerCase(),
         slug,
       })
       .returning();

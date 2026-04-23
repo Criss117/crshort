@@ -1,5 +1,11 @@
 import { sql } from 'drizzle-orm';
-import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import {
+  check,
+  index,
+  integer,
+  sqliteTable,
+  text,
+} from 'drizzle-orm/sqlite-core';
 import { v7 } from 'uuid';
 
 import { user } from '@/integrations/db/schemas/auth.schema';
@@ -25,7 +31,14 @@ export const link = sqliteTable(
   {
     id: uuidV7,
     url: text('url').notNull(),
-    slug: text('slug').notNull(),
+    slug: text('slug', {
+      length: 10,
+    })
+      .notNull()
+      .unique(),
+    customSlug: text('custom_slug', {
+      length: 10,
+    }).unique(),
     description: text('description'),
     clicks: integer('clicks').default(0).notNull(),
     lastClick: integer('last_click', { mode: 'timestamp_ms' }),
@@ -37,7 +50,13 @@ export const link = sqliteTable(
 
     ...auditMetadata,
   },
-  (t) => [index('link_slug_idx').on(t.slug)],
+  (t) => [
+    index('link_slug_idx').on(t.slug),
+    check('link_slug_min_length', sql`length(${t.slug}) >= 6`),
+    check('link_slug_max_length', sql`length(${t.slug}) <= 10`),
+    check('link_custom_slug_min_length', sql`length(${t.customSlug}) >= 5`),
+    check('link_custom_slug_max_length', sql`length(${t.customSlug}) <= 10`),
+  ],
 );
 
 export const tag = sqliteTable(

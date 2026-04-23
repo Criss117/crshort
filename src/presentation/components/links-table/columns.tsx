@@ -4,10 +4,9 @@ import { ChartSpline } from 'lucide-react';
 import type { LinkSelect } from '@/integrations/db/schemas/links.schema';
 
 import { LinkTableActions } from './actions';
-import { shortUrl } from '@/lib/utils';
-import { CopyButton } from '@/presentation/components/copy-button';
 import { Button } from '@/presentation/components/ui/button';
-import { Badge } from '../ui/badge';
+import { Badge } from '@/presentation/components/ui/badge';
+import { SlugCell } from '@/presentation/components/links-table/cells';
 
 export const columnHelper = createColumnHelper<LinkSelect>();
 
@@ -17,25 +16,11 @@ export const columns = [
     header: 'Slug',
     cell: (info) => {
       const slug = info.getValue();
+      const customSlug = info.row.original.customSlug;
       const isActive = info.row.original.isActive;
 
       return (
-        <div className="flex items-center gap-2">
-          {isActive ? (
-            <a
-              href={`/r/${slug}`}
-              target="_blank"
-              className="font-mono text-sm hover:underline font-medium"
-            >
-              {slug}
-            </a>
-          ) : (
-            <span className="font-mono text-sm text-muted font-medium">
-              {slug}
-            </span>
-          )}
-          <CopyButton text={shortUrl(slug)} isDisabled={!isActive} />
-        </div>
+        <SlugCell slug={slug} customSlug={customSlug} isActive={isActive} />
       );
     },
   }),

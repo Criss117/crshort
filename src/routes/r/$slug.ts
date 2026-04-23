@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { and, eq, sql } from 'drizzle-orm';
+import { and, eq, or, sql } from 'drizzle-orm';
 
 import { db } from '@/integrations/db';
 import { link } from '@/integrations/db/schemas/links.schema';
@@ -28,7 +28,12 @@ export const Route = createFileRoute('/r/$slug')({
             url: link.url,
           })
           .from(link)
-          .where(and(eq(link.slug, slug), eq(link.isActive, true)))
+          .where(
+            and(
+              or(eq(link.customSlug, slug), eq(link.slug, slug)),
+              eq(link.isActive, true),
+            ),
+          )
           .limit(1);
 
         const completeLink = completeLinks.at(0);
