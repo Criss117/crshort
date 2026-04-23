@@ -172,6 +172,7 @@ function RouteComponent() {
             <div className="flex items-center justify-center gap-4 w-1/2 mx-auto">
               <Button
                 className="flex-1"
+                nativeButton={false}
                 render={(props) => (
                   <Link to="/dashboard" {...props}>
                     Ingresar
@@ -182,6 +183,7 @@ function RouteComponent() {
               <Button
                 className="flex-1"
                 variant="secondary"
+                nativeButton={false}
                 render={(props) => (
                   <Link to="/dashboard" {...props}>
                     Ver documentación

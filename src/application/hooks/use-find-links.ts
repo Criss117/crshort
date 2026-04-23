@@ -27,7 +27,8 @@ export function useFindLinks(options?: Props) {
         ? data.filter(
             (link) =>
               link.slug.toLowerCase().includes(query.toLowerCase()) ||
-              link.url.toLowerCase().includes(query.toLowerCase()),
+              link.url.toLowerCase().includes(query.toLowerCase()) ||
+              link.customSlug?.toLowerCase().includes(query.toLowerCase()),
           )
         : data;
 

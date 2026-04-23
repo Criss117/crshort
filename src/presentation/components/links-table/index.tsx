@@ -102,16 +102,16 @@ export function LinksTable({ links }: Props) {
         </Table>
       </div>
 
-      <div className="flex items-center justify-between px-2 py-4">
-        <div className="flex items-center gap-1">
-          <div className="text-sm text-muted-foreground">
-            Página <span className="font-medium">{pageIndex + 1}</span> de{' '}
-            <span className="font-medium">{pageCount}</span>
-          </div>
+      <div className="flex items-start justify-between px-2 py-4">
+        <div className="flex gap-1 flex-col">
           <PageSize
             pageSize={table.getState().pagination.pageSize}
             setPageSize={(size) => table.setPageSize(size)}
           />
+          <div className="text-sm text-muted-foreground">
+            Página <span className="font-medium">{pageIndex + 1}</span> de{' '}
+            <span className="font-medium">{pageCount}</span>
+          </div>
         </div>
 
         <div className="flex items-center gap-1 ml-4">
