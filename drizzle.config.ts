@@ -3,6 +3,11 @@ import { defineConfig } from 'drizzle-kit';
 
 config({ path: ['.env.local', '.env'] });
 
+console.log(
+  'process.env.TURSO_CONNECTION_URL',
+  process.env.TURSO_CONNECTION_URL,
+);
+
 export default defineConfig({
   out: './drizzle',
   schema: './src/integrations/db/schemas/*.schema.ts',
