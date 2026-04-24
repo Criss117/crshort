@@ -1,6 +1,5 @@
 import { useId, useState } from 'react';
 import { LinkIcon, PlusIcon } from 'lucide-react';
-import { useForm } from '@tanstack/react-form';
 import { toast } from 'sonner';
 
 import {
@@ -18,14 +17,8 @@ import {
   DialogTrigger,
 } from '@/presentation/components/ui/dialog';
 import { Button } from '@/presentation/components/ui/button';
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from '@/presentation/components/ui/field';
-import { Input } from '@/presentation/components/ui/input';
+import { FieldGroup } from '@/presentation/components/ui/field';
+import { useLinkForm } from './link-form';
 
 interface Props {
   label?: string;
@@ -40,7 +33,7 @@ export function CreateLink({ label }: Props) {
   const [open, setOpen] = useState(false);
   const { create } = useMutateLinks();
 
-  const form = useForm({
+  const form = useLinkForm({
     defaultValues,
     validators: {
       onChange: createLinkValidator,
@@ -105,75 +98,13 @@ export function CreateLink({ label }: Props) {
           }}
         >
           <FieldGroup className="space-y-2">
-            <form.Field
+            <form.AppField
               name="url"
-              children={(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-
-                return (
-                  <Field data-invalid={isInvalid}>
-                    <div className="flex space-x-0.5">
-                      <FieldLabel htmlFor={field.name}>Nuevo Enlace</FieldLabel>
-                      <span className="text-destructive">*</span>
-                    </div>
-                    <Input
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      aria-invalid={isInvalid}
-                      placeholder="https://crshort.com/new-link"
-                      autoComplete="off"
-                      className="mx-1"
-                    />
-                    <FieldDescription>
-                      Ingrese el Enlace que desea acortar
-                    </FieldDescription>
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
-                  </Field>
-                );
-              }}
+              children={(field) => <field.LinkInput />}
             />
-            <form.Field
+            <form.AppField
               name="customSlug"
-              children={(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-
-                return (
-                  <Field data-invalid={isInvalid}>
-                    <div className="flex space-x-0.5">
-                      <FieldLabel htmlFor={field.name}>
-                        Slug Personalizado
-                      </FieldLabel>
-                      <span className="text-muted-foreground text-sm">
-                        (opcional)
-                      </span>
-                    </div>
-                    <Input
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      aria-invalid={isInvalid}
-                      placeholder="new-link"
-                      autoComplete="off"
-                      className="mx-1"
-                    />
-                    <FieldDescription>
-                      Ingrese el Slug personalizado para el enlace
-                    </FieldDescription>
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
-                  </Field>
-                );
-              }}
+              children={(field) => <field.CustomSlugInput />}
             />
           </FieldGroup>
         </form>
