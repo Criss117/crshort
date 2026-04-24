@@ -3,12 +3,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type {
   CreateLink,
   DeleteLinks,
+  UpdateCustomSlug,
 } from '@/application/validators/link.validators';
 import {
   createLinkAction,
   deleteManyLinksAction,
   disableManyLinksAction,
   enableManyLinksAction,
+  updateCustomSlugAction,
 } from '@/application/actions/link.actions';
 import { findAllLinksQueryOptions } from '@/application/queries/link.queries';
 
@@ -50,10 +52,22 @@ export function useMutateLinks() {
     },
   });
 
+  const updateCustomSlug = useMutation({
+    mutationKey: ['update-custom-slug'],
+    mutationFn: (data: UpdateCustomSlug) =>
+      updateCustomSlugAction({
+        data,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(findAllLinksQueryOptions);
+    },
+  });
+
   return {
     create,
     remove,
     disable,
     enable,
+    updateCustomSlug,
   };
 }

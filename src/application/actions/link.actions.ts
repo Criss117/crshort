@@ -1,5 +1,5 @@
 import { createServerFn } from '@tanstack/react-start';
-import { and, desc, eq, inArray, or } from 'drizzle-orm';
+import { and, desc, eq, inArray, ne, or } from 'drizzle-orm';
 
 import { db } from '@/integrations/db';
 import { link } from '@/integrations/db/schemas/links.schema';
@@ -7,6 +7,7 @@ import { link } from '@/integrations/db/schemas/links.schema';
 import {
   createLinkValidator,
   deleteLinksValidator,
+  updateCustomSlugValidator,
 } from '@/application/validators/link.validators';
 import { requiredAuthMiddleware } from '@/application/actions/middlewares';
 
@@ -119,4 +120,37 @@ export const enableManyLinksAction = createServerFn()
           ),
         ),
       );
+  });
+
+export const updateCustomSlugAction = createServerFn()
+  .middleware([requiredAuthMiddleware])
+  .inputValidator(updateCustomSlugValidator)
+  .handler(async ({ context, data }) => {
+    const user = context.session.user;
+
+    // Check if another link already has this slug (excluding this link)
+    const existingLink = await db
+      .select({
+        id: link.id,
+      })
+      .from(link)
+      .where(
+        and(
+          ne(link.id, data.id),
+          or(
+            eq(link.customSlug, data.customSlug.toLowerCase()),
+            eq(link.slug, data.customSlug.toLowerCase()),
+          ),
+        ),
+      )
+      .limit(1);
+
+    if (existingLink.length > 0) {
+      throw new Error('El slug personalizado ya está en uso');
+    }
+
+    await db
+      .update(link)
+      .set({ customSlug: data.customSlug.toLowerCase() })
+      .where(and(eq(link.userId, user.id), eq(link.id, data.id)));
   });

@@ -3,8 +3,10 @@ import { useFindLinks } from '@/application/hooks/use-find-links';
 import { LinksHeaderSection } from '@/presentation/sections/links-header.section';
 import { LinksFiltersSection } from '@/presentation/sections/links-filters.section';
 import { LinksTable } from '@/presentation/components/links-table';
+import { EditCustomSlugDialog } from '@/presentation/components/edit-custom-slug-dialog';
 
 import { FiltersProvider, useFilters } from '@/application/store/filters.store';
+import { EditCustomSlugDialogProvider } from '@/presentation/contexts/edit-custom-slug-dialog';
 
 function FilteredSections() {
   const { filters } = useFilters();
@@ -19,6 +21,14 @@ function FilteredSections() {
     <>
       <LinksFiltersSection />
       <LinksTable links={links} />
+      <EditCustomSlugDialog
+        links={links.map((l) => ({
+          id: l.id,
+          url: l.url,
+          customSlug: l.customSlug,
+          slug: l.slug,
+        }))}
+      />
     </>
   );
 }
@@ -30,7 +40,9 @@ export function LinksScreen() {
     <main className="px-4 sm:px-6 lg:px-8 py-8">
       <LinksHeaderSection links={links} />
       <FiltersProvider>
-        <FilteredSections />
+        <EditCustomSlugDialogProvider>
+          <FilteredSections />
+        </EditCustomSlugDialogProvider>
       </FiltersProvider>
     </main>
   );

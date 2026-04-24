@@ -8,6 +8,7 @@ import {
 
 import { useMutateLinks } from '@/application/hooks/use-mutate-links';
 import type { LinkSelect } from '@/integrations/db/schemas/links.schema';
+import { useEditCustomSlugDialog } from '@/presentation/contexts/edit-custom-slug-dialog';
 
 import { Button } from '@/presentation/components/ui/button';
 import {
@@ -39,6 +40,7 @@ function DeleteLink({ link }: Props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger
+        nativeButton={false}
         render={(props) => (
           <DropdownMenuItem
             variant="destructive"
@@ -83,6 +85,7 @@ function DeleteLink({ link }: Props) {
 
 export function LinkTableActions({ link }: Props) {
   const { disable, enable } = useMutateLinks();
+  const { open: openEditSlugDialog } = useEditCustomSlugDialog();
 
   const isPending = disable.isPending || enable.isPending;
 
@@ -102,6 +105,10 @@ export function LinkTableActions({ link }: Props) {
       />
       <DropdownMenuContent className="w-48">
         <DropdownMenuGroup>
+          <DropdownMenuItem onClick={() => openEditSlugDialog(link.id)}>
+            <SettingsIcon className="text-muted-foreground size-4" />
+            Editar Slug
+          </DropdownMenuItem>
           {link.isActive ? (
             <DropdownMenuItem
               disabled={isPending}
