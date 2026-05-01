@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { findAllLinksQueryOptions } from '@/application/queries/link.queries';
-import type { LinkWithTags } from '@/integrations/db/schemas/links.schema';
 import type { GroupByType } from '@/application/store/filters.store';
 
 interface Props {
@@ -29,7 +28,10 @@ export function useFindLinks(options?: Props) {
             (link) =>
               link.slug.toLowerCase().includes(query.toLowerCase()) ||
               link.url.toLowerCase().includes(query.toLowerCase()) ||
-              link.customSlug?.toLowerCase().includes(query.toLowerCase()),
+              link.customSlug?.toLowerCase().includes(query.toLowerCase()) ||
+              link.linkTags.some(({ tag }) =>
+                tag.slug.toLowerCase().includes(query.toLowerCase()),
+              ),
           )
         : data;
 
