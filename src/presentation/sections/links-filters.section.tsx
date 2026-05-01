@@ -1,6 +1,8 @@
-import { FunnelIcon, SearchIcon, XIcon } from 'lucide-react';
+import { useMemo } from 'react';
+import { SearchIcon, XIcon } from 'lucide-react';
 
 import { useFilters } from '@/application/store/filters.store';
+import { useFindLinks } from '@/application/hooks/use-find-links';
 
 import { Input } from '@/presentation/components/ui/input';
 import { Button } from '@/presentation/components/ui/button';
@@ -30,6 +32,19 @@ const Filters = {
 
 export function LinksFiltersSection() {
   const { filters, dispatch } = useFilters();
+  const { links } = useFindLinks();
+
+  const availableTags = useMemo(() => {
+    const tagSet = new Set<string>();
+    for (const link of links) {
+      for (const lt of link.linkTags) {
+        tagSet.add(lt.tag.slug);
+      }
+    }
+    return Array.from(tagSet).sort();
+  }, [links]);
+
+  const hasTags = availableTags.length > 0;
 
   return (
     <section className="flex flex-col sm:flex-row gap-3 mb-6">
@@ -95,9 +110,36 @@ export function LinksFiltersSection() {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Button variant="outline" size="icon">
-          <FunnelIcon />
-        </Button>
+        <Select
+          value={filters.tag}
+          onValueChange={(v) => {
+            dispatch({
+              type: 'set:tag',
+              payload: v ?? '',
+            });
+          }}
+          disabled={!hasTags}
+        >
+          <SelectTrigger className="flex-1">
+            <SelectValue placeholder="Tags">
+              {hasTags
+                ? filters.tag
+                  ? availableTags.find((t) => t === filters.tag) ?? 'Todos'
+                  : 'Todos'
+                : 'Sin tags'}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="">Todos</SelectItem>
+              {availableTags.map((tag) => (
+                <SelectItem key={tag} value={tag}>
+                  {tag}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </div>
     </section>
   );

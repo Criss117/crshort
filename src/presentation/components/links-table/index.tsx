@@ -14,7 +14,7 @@ import {
   PageSize,
   PrevPage,
 } from '@/presentation/components/links-table/pagination';
-import type { LinkSelect } from '@/integrations/db/schemas/links.schema';
+import type { LinkWithTags } from '@/integrations/db/schemas/links.schema';
 import { CreateLink } from '@/presentation/components/create-link';
 import {
   Table,
@@ -26,7 +26,7 @@ import {
 } from '@/presentation/components/ui/table';
 
 interface Props {
-  links: LinkSelect[];
+  links: LinkWithTags[];
 }
 
 export function LinksTable({ links }: Props) {

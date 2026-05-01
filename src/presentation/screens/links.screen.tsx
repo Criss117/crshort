@@ -14,6 +14,7 @@ function FilteredSections() {
     filters: {
       query: filters.query,
       group: filters.group,
+      tag: filters.tag,
     },
   });
 

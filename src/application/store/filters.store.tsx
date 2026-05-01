@@ -1,6 +1,6 @@
 import { createContext, use, useReducer } from 'react';
 
-const GroupBy = {
+export const GroupBy = {
   all: 'all',
   active: 'active',
   inactive: 'inactive',
@@ -11,6 +11,7 @@ export type GroupByType = (typeof GroupBy)[keyof typeof GroupBy];
 type Filters = {
   query: string;
   group: GroupByType;
+  tag: string;
 };
 
 type Actions =
@@ -21,7 +22,9 @@ type Actions =
   | { type: 'set:group'; payload: string }
   | { type: 'reset:group' }
   | { type: 'reset:query' }
-  | { type: 'reset' };
+  | { type: 'reset' }
+  | { type: 'set:tag'; payload: string }
+  | { type: 'reset:tag' };
 
 interface Context {
   filters: Filters;
@@ -38,7 +41,7 @@ export function useFilters() {
   return context;
 }
 
-function filtersReducer(state: Filters, action: Actions) {
+export function filtersReducer(state: Filters, action: Actions) {
   switch (action.type) {
     case 'set:query':
       return {
@@ -49,11 +52,13 @@ function filtersReducer(state: Filters, action: Actions) {
       return {
         query: '',
         group: GroupBy.all,
+        tag: '',
       };
     case 'reset:query':
       return {
         query: '',
         group: GroupBy.all,
+        tag: '',
       };
     case 'set:group':
       if (!Object.values(GroupBy).includes(action.payload as GroupByType))
@@ -70,6 +75,16 @@ function filtersReducer(state: Filters, action: Actions) {
         ...state,
         group: GroupBy.all,
       };
+    case 'set:tag':
+      return {
+        ...state,
+        tag: action.payload,
+      };
+    case 'reset:tag':
+      return {
+        ...state,
+        tag: '',
+      };
     default:
       return state;
   }
@@ -79,6 +94,7 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
   const [filters, dispatch] = useReducer(filtersReducer, {
     query: '',
     group: GroupBy.all,
+    tag: '',
   });
 
   return (
