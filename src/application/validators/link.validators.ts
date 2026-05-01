@@ -9,6 +9,7 @@ export const createLinkValidator = z.object({
     .min(5, 'El slug personalizado es muy corto')
     .max(10, 'El slug personalizado es muy largo')
     .optional(),
+  tags: z.string().optional(),
 });
 
 export const deleteLinksValidator = z

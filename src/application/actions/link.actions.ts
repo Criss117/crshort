@@ -1,8 +1,14 @@
 import { createServerFn } from '@tanstack/react-start';
-import { and, desc, eq, inArray, ne, or } from 'drizzle-orm';
+import { and, desc, eq, inArray, ne, or, sql } from 'drizzle-orm';
 
 import { db } from '@/integrations/db';
-import { link } from '@/integrations/db/schemas/links.schema';
+import {
+  link,
+  linkTag,
+  tag,
+  type LinkWithTags,
+} from '@/integrations/db/schemas/links.schema';
+import { prepareTagData } from '@/lib/tag-utils';
 
 import {
   createLinkValidator,
@@ -38,17 +44,63 @@ export const createLinkAction = createServerFn()
 
     const slug = Math.random().toString(36).substring(2, 8);
 
-    const [newLink] = await db
-      .insert(link)
-      .values({
-        userId: user.id,
-        url: data.url,
-        customSlug: data.customSlug?.toLowerCase(),
-        slug,
-      })
-      .returning();
+    const tags = prepareTagData(data.tags);
 
-    return newLink;
+    const result = await db.transaction(async (tx) => {
+      const [newLink] = await tx
+        .insert(link)
+        .values({
+          userId: user.id,
+          url: data.url,
+          customSlug: data.customSlug?.toLowerCase(),
+          slug,
+        })
+        .returning();
+
+      // Skip tag processing if no tags provided
+      if (tags.length === 0) {
+        return newLink;
+      }
+
+      for (const tagData of tags) {
+        // Case-insensitive lookup via LOWER(slug)
+        const [existingTag] = await tx
+          .select()
+          .from(tag)
+          .where(
+            and(
+              eq(tag.userId, user.id),
+              sql`LOWER(${tag.slug}) = ${tagData.slug}`,
+            ),
+          )
+          .limit(1);
+
+        let tagId: string;
+        if (existingTag) {
+          tagId = existingTag.id;
+        } else {
+          const [newTag] = await tx
+            .insert(tag)
+            .values({
+              name: tagData.name,
+              slug: tagData.slug,
+              color: tagData.color,
+              userId: user.id,
+            })
+            .returning();
+          tagId = newTag.id;
+        }
+
+        await tx.insert(linkTag).values({
+          linkId: newLink.id,
+          tagId,
+        });
+      }
+
+      return newLink;
+    });
+
+    return result;
   });
 
 export const findAllLinksAction = createServerFn()
@@ -56,13 +108,19 @@ export const findAllLinksAction = createServerFn()
   .handler(async ({ context }) => {
     const user = context.session.user;
 
-    const links = await db
-      .select()
-      .from(link)
-      .where(and(eq(link.userId, user.id)))
-      .orderBy(desc(link.createdAt));
+    const links = await db.query.link.findMany({
+      where: eq(link.userId, user.id),
+      orderBy: desc(link.createdAt),
+      with: {
+        linkTags: {
+          with: {
+            tag: true,
+          },
+        },
+      },
+    });
 
-    return links;
+    return links as unknown as LinkWithTags[];
   });
 
 export const deleteManyLinksAction = createServerFn()

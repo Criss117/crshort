@@ -1,14 +1,15 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { ChartSpline } from 'lucide-react';
 
-import type { LinkSelect } from '@/integrations/db/schemas/links.schema';
+import type { LinkWithTags } from '@/integrations/db/schemas/links.schema';
+import { hashColorFromSlug } from '@/lib/tag-utils';
 
 import { LinkTableActions } from './actions';
 import { Button } from '@/presentation/components/ui/button';
 import { Badge } from '@/presentation/components/ui/badge';
 import { SlugCell } from '@/presentation/components/links-table/cells';
 
-export const columnHelper = createColumnHelper<LinkSelect>();
+export const columnHelper = createColumnHelper<LinkWithTags>();
 
 export const columns = [
   columnHelper.accessor((t) => t.slug, {
@@ -46,6 +47,27 @@ export const columns = [
     id: 'clicks',
     header: 'Clics',
     cell: (info) => info.getValue(),
+  }),
+  columnHelper.accessor((t) => t.linkTags, {
+    id: 'tags',
+    header: 'Tags',
+    cell: (info) => {
+      const linkTags = info.getValue();
+      if (!linkTags || linkTags.length === 0) return null;
+
+      return (
+        <div className="flex gap-1 flex-wrap">
+          {linkTags.map((lt) => (
+            <Badge
+              key={lt.tag.id}
+              style={{ backgroundColor: lt.tag.color }}
+            >
+              {lt.tag.name}
+            </Badge>
+          ))}
+        </div>
+      );
+    },
   }),
   columnHelper.accessor((t) => t.isActive, {
     id: 'isActive',

@@ -1,10 +1,12 @@
-import { sql } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 import {
   check,
   index,
   integer,
+  primaryKey,
   sqliteTable,
   text,
+  unique,
 } from 'drizzle-orm/sqlite-core';
 import { v7 } from 'uuid';
 
@@ -74,23 +76,58 @@ export const tag = sqliteTable(
 
     ...auditMetadata,
   },
-  (t) => [index('tag_slug_idx').on(t.slug), index('tag_name_idx').on(t.name)],
+  (t) => [
+    index('tag_slug_idx').on(t.slug),
+    index('tag_name_idx').on(t.name),
+    unique('tag_slug_user_unique').on(t.slug, t.userId),
+  ],
 );
 
 export const linkTag = sqliteTable(
   'link_tag',
   {
-    linkId: uuidV7.references(() => link.id, {
-      onDelete: 'cascade',
-    }),
-    tagId: uuidV7.references(() => tag.id, {
-      onDelete: 'cascade',
-    }),
-
-    ...auditMetadata,
+    linkId: text('link_id')
+      .notNull()
+      .references(() => link.id, {
+        onDelete: 'cascade',
+      }),
+    tagId: text('tag_id')
+      .notNull()
+      .references(() => tag.id, {
+        onDelete: 'cascade',
+      }),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
+      .notNull(),
   },
-  (t) => [index('link_tag_ids_idx').on(t.linkId, t.tagId)],
+  (t) => [
+    primaryKey({ columns: [t.linkId, t.tagId] }),
+    index('link_tag_ids_idx').on(t.linkId, t.tagId),
+  ],
 );
+
+// ── Relations ────────────────────────────────────────────────
+
+export const tagRelations = relations(tag, ({ many }) => ({
+  linkTags: many(linkTag),
+}));
+
+export const linkTagRelations = relations(linkTag, ({ one }) => ({
+  link: one(link, {
+    fields: [linkTag.linkId],
+    references: [link.id],
+  }),
+  tag: one(tag, {
+    fields: [linkTag.tagId],
+    references: [tag.id],
+  }),
+}));
+
+export const linkRelations = relations(link, ({ many }) => ({
+  linkTags: many(linkTag),
+}));
+
+// ── Types ────────────────────────────────────────────────────
 
 export type LinkSelect = typeof link.$inferSelect;
 export type TagSelect = typeof tag.$inferSelect;
@@ -99,3 +136,10 @@ export type LinkTagSelect = typeof linkTag.$inferSelect;
 export type LinkInsert = typeof link.$inferInsert;
 export type TagInsert = typeof tag.$inferInsert;
 export type LinkTagInsert = typeof linkTag.$inferInsert;
+
+/** Link with nested tags loaded via Drizzle relations */
+export type LinkWithTags = LinkSelect & {
+  linkTags: Array<{
+    tag: TagSelect;
+  }>;
+};

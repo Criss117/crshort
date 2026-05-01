@@ -26,6 +26,7 @@ interface Props {
 
 const defaultValues: CreateLink = {
   url: '',
+  tags: '',
 };
 
 export function CreateLink({ label }: Props) {
@@ -105,6 +106,10 @@ export function CreateLink({ label }: Props) {
             <form.AppField
               name="customSlug"
               children={(field) => <field.CustomSlugInput />}
+            />
+            <form.AppField
+              name="tags"
+              children={(field) => <field.TagInput />}
             />
           </FieldGroup>
         </form>

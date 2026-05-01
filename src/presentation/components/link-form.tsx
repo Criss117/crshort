@@ -10,10 +10,10 @@ export const { fieldContext, formContext, useFieldContext } =
 const { useAppForm } = createFormHook({
   fieldContext,
   formContext,
-  // We'll learn more about these options later
   fieldComponents: {
     LinkInput,
     CustomSlugInput,
+    TagInput,
   },
   formComponents: {},
 });
@@ -24,7 +24,7 @@ function LinkInput() {
 
   return (
     <Field data-invalid={isInvalid}>
-      <div className="flex space-x-0.5">
+      <div className="flex gap-0.5">
         <FieldLabel htmlFor={field.name}>Nuevo Enlace</FieldLabel>
         <span className="text-destructive">*</span>
       </div>
@@ -51,7 +51,7 @@ function CustomSlugInput() {
 
   return (
     <Field data-invalid={isInvalid}>
-      <div className="flex space-x-0.5">
+      <div className="flex gap-0.5">
         <FieldLabel htmlFor={field.name}>Slug Personalizado</FieldLabel>
         <span className="text-muted-foreground text-sm">(opcional)</span>
       </div>
@@ -69,6 +69,33 @@ function CustomSlugInput() {
       <FieldDescription>
         Ingrese el Slug personalizado para el enlace
       </FieldDescription>
+      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+    </Field>
+  );
+}
+
+function TagInput() {
+  const field = useFieldContext<string>();
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+
+  return (
+    <Field data-invalid={isInvalid}>
+      <div className="flex gap-0.5">
+        <FieldLabel htmlFor={field.name}>Tags</FieldLabel>
+        <span className="text-muted-foreground text-sm">(opcional)</span>
+      </div>
+      <Input
+        id={field.name}
+        name={field.name}
+        value={field.state.value}
+        onBlur={field.handleBlur}
+        onChange={(e) => field.handleChange(e.target.value)}
+        aria-invalid={isInvalid}
+        placeholder="trabajo, React, Producción"
+        autoComplete="off"
+        className="mx-1"
+      />
+      <FieldDescription>Etiquetas separadas por coma</FieldDescription>
       {isInvalid && <FieldError errors={field.state.meta.errors} />}
     </Field>
   );

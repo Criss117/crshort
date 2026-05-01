@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { findAllLinksQueryOptions } from '@/application/queries/link.queries';
+import type { LinkWithTags } from '@/integrations/db/schemas/links.schema';
 import type { GroupByType } from '@/application/store/filters.store';
 
 interface Props {
