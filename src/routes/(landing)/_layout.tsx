@@ -2,10 +2,18 @@ import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 import { LinkIcon } from 'lucide-react';
 
 import { ToogleThemeButton } from '@/presentation/components/toogle-theme';
-import { Button } from '@/presentation/components/ui/button';
+import { getSessionQueryOptions } from '@/application/queries/auth.queries';
+import {
+  SignUpDialog,
+  SignUpDialogSkeleton,
+} from '@/presentation/components/sign-up-dialog';
+import { Suspense } from 'react';
 
 export const Route = createFileRoute('/(landing)/_layout')({
   component: RouteComponent,
+  beforeLoad: async ({ context }) => {
+    context.queryClient.prefetchQuery(getSessionQueryOptions);
+  },
 });
 
 function RouteComponent() {
@@ -32,12 +40,9 @@ function RouteComponent() {
             >
               Cómo funciona
             </Link>
-            <Button
-              nativeButton={false}
-              render={(props) => <Link to="/dashboard" {...props} />}
-            >
-              Ingresar
-            </Button>
+            <Suspense fallback={<SignUpDialogSkeleton />}>
+              <SignUpDialog />
+            </Suspense>
             <div>
               <ToogleThemeButton />
             </div>
