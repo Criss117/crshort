@@ -5,6 +5,9 @@ import { Button } from '@/presentation/components/ui/button';
 
 export const Route = createFileRoute('/(landing)/_layout/terms')({
   component: RouteComponent,
+  head: () => ({
+    meta: [{ title: 'Términos de Servicio | crshort' }],
+  }),
 });
 
 function RouteComponent() {
@@ -59,7 +62,7 @@ function RouteComponent() {
             Increíble, ¿verdad? Probablemente has visto otros como Bitly o
             TinyURL. Esto es básicamente lo mismo, pero hecho en casa.
           </p>
-          <p className="mt-2">
+          <p className="mt-3 text-sm text-muted-foreground">
             <strong>TODO:</strong> Describir funcionalidades específicas del
             servicio (límite de enlaces, estadísticas, API, etc.)
           </p>
@@ -76,10 +79,7 @@ function RouteComponent() {
           </ul>
           <p className="mt-3">No está bien:</p>
           <ul>
-            <li>
-              Usarlo para phishing, malware, o做任何坏事 (perdón, se me fue el
-              idioma)
-            </li>
+            <li>Usarlo para phishing, malware o cualquier cosa maliciosa</li>
             <li>Spam masivo tipo "Gana dinero desde casa"</li>
             <li>
               Redirigir a contenido ilegal, NSFW, o cualquier cosa que te dé
@@ -111,7 +111,7 @@ function RouteComponent() {
             La opción 2 es válida. No te guardamos rencor. Probablemente ni nos
             demos cuenta.
           </p>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-3 text-sm text-muted-foreground">
             <strong>TODO:</strong> Definir horas de mantenimiento, proceso de
             notificaciones, SLA si aplica
           </p>
@@ -124,7 +124,7 @@ function RouteComponent() {
             cuando quieras. Nosotros podemos eliminarlos... cuando queramos
             también. Si violas los términos, bye bye enlaces. Sin drama.
           </p>
-          <p className="mt-2">
+          <p className="mt-3 text-sm text-muted-foreground">
             <strong>TODO:</strong> Definir política de retención de datos tras
             eliminación de cuenta, procedimiento de exportación de datos
           </p>
@@ -132,7 +132,7 @@ function RouteComponent() {
 
         <section className="mb-8">
           <h2>6. Responsabilidad</h2>
-          <p>
+          <p className="mt-3 text-sm text-muted-foreground">
             <strong>TODO:</strong> Cláusula estándar de limitación de
             responsabilidad
           </p>
@@ -152,7 +152,7 @@ function RouteComponent() {
             </Link>{' '}
             para saber qué coletamos.
           </p>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-3 text-sm text-muted-foreground">
             <strong>TODO:</strong> Enlazar a política de cookies, describir uso
             de analytics, cookies esenciales vs. de terceros
           </p>
@@ -163,10 +163,9 @@ function RouteComponent() {
           <p>
             Podemos cambiar estos términos cuando nos dé la gana. En realidad,
             no, te avisaremos. Probablemente. Si rememberamos hacerlo. Los
-            cambios不会是 retroactively aplicada a menos que sea necesario. (Eso
-            fue chino accidental, pero se ve fancy).
+            cambios no se aplicarán retroactivamente a menos que sea necesario.
           </p>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-3 text-sm text-muted-foreground">
             <strong>TODO:</strong> Definir proceso de notificación de cambios,
             período de gracia, fecha efectiva de cambios
           </p>
@@ -180,7 +179,7 @@ function RouteComponent() {
             robarlo (el código). Si quieres contribuir, open source maybe en el
             future.
           </p>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-3 text-sm text-muted-foreground">
             <strong>TODO:</strong> Definir licencia del código, uso de
             logos/marcas, contribuciones de terceros
           </p>
@@ -193,7 +192,7 @@ function RouteComponent() {
             estés y de dónde esté el servidor (spoiler: en la nube, lo que sea
             que eso signifique).
           </p>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-3 text-sm text-muted-foreground">
             <strong>TODO:</strong> Definir jurisdicción específica, tribunal
             competente, resolución de disputas
           </p>

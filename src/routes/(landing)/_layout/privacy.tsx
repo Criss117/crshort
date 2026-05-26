@@ -5,6 +5,9 @@ import { Button } from '@/presentation/components/ui/button';
 
 export const Route = createFileRoute('/(landing)/_layout/privacy')({
   component: RouteComponent,
+  head: () => ({
+    meta: [{ title: 'Política de Privacidad | crshort' }],
+  }),
 });
 
 function RouteComponent() {
@@ -74,7 +77,7 @@ function RouteComponent() {
               la sesión activa y analytics básicos.
             </li>
           </ul>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-3 text-sm text-muted-foreground">
             <strong>TODO:</strong> Especificar qué datos exactos coleta
             analytics (Google Analytics, Plausible, etc.)
           </p>
@@ -101,9 +104,7 @@ function RouteComponent() {
               Te rastreamos por todo el internet (para eso ya está Google)
             </li>
             <li>Compartimos tu info con terceros random</li>
-            <li>
-              Hacemos perfiles psikoolójikos para predecir tu futuro (aún)
-            </li>
+            <li>Hacemos perfiles psicológicos para predecir tu futuro (aún)</li>
           </ul>
         </section>
 
@@ -124,7 +125,7 @@ function RouteComponent() {
               usan el servicio. Spoiler: a veces solo somos una. 👋
             </li>
           </ul>
-          <p className="mt-2">
+          <p className="mt-3 text-sm text-muted-foreground">
             <strong>TODO:</strong> Implementar banner de cookies, permitir
             rechazo de cookies no esenciales, documentar opciones disponibles
           </p>
@@ -143,15 +144,18 @@ function RouteComponent() {
             </li>
             <li>
               <strong>Borrar tu cuenta:</strong> Si quieres irte, te dejamos ir.
-              No hay 挽留 ni drama. Los portes están abiertos.
+              No hay rencor ni drama. Los portes están abiertos.
             </li>
             <li>
               <strong>Exportar tus datos:</strong> Si quieres tus enlaces en
               otro lugar, te los damos. Son tuyos, después de todo.
             </li>
             <li>
-              <strong>Opt-out de analytics:</strong> <strong>TODO:</strong>{' '}
-              Implementar mecanismo para rechazar tracking
+              <strong>Opt-out de analytics:</strong>{' '}
+              <strong className="text-muted-foreground">TODO:</strong>
+              <span className="text-muted-foreground">
+                Implementar mecanismo para rechazar tracking
+              </span>
             </li>
           </ul>
           <p className="mt-2">
@@ -164,7 +168,7 @@ function RouteComponent() {
           <h2>5. Almacenamiento y seguridad</h2>
           <p>
             Tus datos están en la nube, como todos. Específicamente en{' '}
-            <strong>TODO: especificar proveedor</strong>. Hacemos lo posible por
+            <strong>especificar proveedor</strong>. Hacemos lo posible por
             mantenerlo seguro:
           </p>
           <ul>
@@ -199,11 +203,11 @@ function RouteComponent() {
         <section className="mb-8">
           <h2>7. Cambios a esta política</h2>
           <p>
-            Si cambiamos cosas (porque podemos), te lo avisaremos. Probably.
-            Actualizaremos la fecha de "última actualización" para que sepas que
-            algo cambió.
+            Si cambiamos cosas (porque podemos), te lo avisaremos.
+            Probablemente. Actualizaremos la fecha de "última actualización"
+            para que sepas que algo cambió.
           </p>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-3 text-sm text-muted-foreground">
             <strong>TODO:</strong> Definir proceso de notificación de cambios,
             cómo comunicaremos updates significativos
           </p>
@@ -248,7 +252,11 @@ function RouteComponent() {
 
       {/* Back button */}
       <div className="mt-12 pt-6 border-t border-border/50">
-        <Button variant="outline" render={<Link to="/" />} nativeButton={false}>
+        <Button
+          variant="outline"
+          render={(props) => <Link to="/" {...props} />}
+          nativeButton={false}
+        >
           <LinkIcon data-icon="inline-start" />
           Volver al inicio
         </Button>

@@ -30,13 +30,13 @@ function RouteComponent() {
           <nav className="flex items-center gap-4">
             <Link
               to="/features"
-              className="text-sm text-muted-foreground-foreground hover:text-foreground transition-colors hidden sm:block"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
             >
               Funciones
             </Link>
             <Link
               to="/how-its-works"
-              className="text-sm text-muted-foreground-foreground hover:text-foreground transition-colors hidden sm:block"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
             >
               Cómo funciona
             </Link>
