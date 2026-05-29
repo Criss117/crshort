@@ -13,16 +13,7 @@ const config = defineConfig({
     devtools(),
     tailwindcss(),
     netlify(),
-    tanstackStart({
-      prerender: {
-        enabled: true,
-        crawlLinks: true,
-        filter: ({ path }) =>
-          !path.startsWith('/dashboard') &&
-          !path.startsWith('/api') &&
-          !path.startsWith('/auth'),
-      },
-    }),
+    tanstackStart(),
     viteReact({
       babel: {
         plugins: ['babel-plugin-react-compiler'],
