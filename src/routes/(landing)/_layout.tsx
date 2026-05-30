@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
-import { LinkIcon } from 'lucide-react';
+import { Suspense } from 'react';
 
 import { ToogleThemeButton } from '@/presentation/components/toogle-theme';
 import { getSessionQueryOptions } from '@/application/queries/auth.queries';
@@ -7,7 +7,7 @@ import {
   SignUpDialog,
   SignUpDialogSkeleton,
 } from '@/presentation/components/sign-up-dialog';
-import { Suspense } from 'react';
+import { AppIcon } from '@/presentation/components/icons/app-icon';
 
 export const Route = createFileRoute('/(landing)/_layout')({
   component: RouteComponent,
@@ -22,8 +22,8 @@ function RouteComponent() {
       <header className="sticky top-0 bg-background/80 z-50 backdrop-blur-md">
         <div className="flex items-center justify-between px-6 py-4 max-w-6xl mx-auto">
           <Link to="/" className="flex items-center gap-2">
-            <div className="size-9 bg-primary rounded-full flex items-center justify-center">
-              <LinkIcon />
+            <div className="size-9 rounded-full flex items-center justify-center">
+              <AppIcon />
             </div>
             <span className="font-bold text-lg tracking-tight">crshort</span>
           </Link>
@@ -57,8 +57,8 @@ function RouteComponent() {
       <footer className="border-t border-border/50 px-6 py-8">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-2">
-            <div className="size-8 bg-primary rounded-full flex items-center justify-center">
-              <LinkIcon />
+            <div className="size-8 rounded-full flex items-center justify-center">
+              <AppIcon />
             </div>
             <span className="text-sm text-muted-foreground">
               © {new Date().getFullYear()} crshort.com

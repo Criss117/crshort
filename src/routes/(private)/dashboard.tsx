@@ -4,13 +4,13 @@ import {
   Outlet,
   redirect,
 } from '@tanstack/react-router';
-import { LinkIcon } from 'lucide-react';
 
 import { UserButton } from '@/presentation/components/user-button';
 import { CreateLink } from '@/presentation/components/create-link';
 
 import { getSessionQueryOptions } from '@/application/queries/auth.queries';
 import { findAllLinksQueryOptions } from '@/application/queries/link.queries';
+import { AppIcon } from '@/presentation/components/icons/app-icon';
 
 export const Route = createFileRoute('/(private)/dashboard')({
   component: RouteComponent,
@@ -42,8 +42,8 @@ function RouteComponent() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-4">
               <Link to="/dashboard" className="flex items-center gap-2">
-                <div className="size-8 bg-accent rounded-full flex items-center justify-center">
-                  <LinkIcon />
+                <div className="size-8 rounded-full flex items-center justify-center">
+                  <AppIcon />
                 </div>
                 <span className="font-bold text-lg">crshort</span>
               </Link>

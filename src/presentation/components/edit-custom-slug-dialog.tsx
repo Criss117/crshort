@@ -1,5 +1,4 @@
 import { useId } from 'react';
-import { LinkIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { updateCustomSlugValidatorForm } from '@/application/validators/link.validators';
@@ -22,6 +21,7 @@ import {
 } from '@/presentation/components/ui/field';
 import { Input } from '@/presentation/components/ui/input';
 import { useLinkForm } from './link-form';
+import { AppIcon } from './icons/app-icon';
 
 interface Props {
   links: Array<{
@@ -99,7 +99,9 @@ function EditSlugForm({ links }: Props) {
     >
       <DialogContent className="min-w-96">
         <DialogHeader className="flex flex-row items-center gap-x-2">
-          <LinkIcon />
+          <div className="size-8">
+            <AppIcon />
+          </div>
           <DialogTitle>Editar Slug Personalizado</DialogTitle>
         </DialogHeader>
 

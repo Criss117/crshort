@@ -1,5 +1,5 @@
 import { useId, useState } from 'react';
-import { LinkIcon, PlusIcon } from 'lucide-react';
+import { PlusIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 import {
@@ -19,6 +19,7 @@ import {
 import { Button } from '@/presentation/components/ui/button';
 import { FieldGroup } from '@/presentation/components/ui/field';
 import { useLinkForm } from './link-form';
+import { AppIcon } from './icons/app-icon';
 
 interface Props {
   label?: string;
@@ -87,7 +88,9 @@ export function CreateLink({ label }: Props) {
       />
       <DialogContent className="min-w-120">
         <DialogHeader className="flex flex-row items-center gap-x-2">
-          <LinkIcon />
+          <div className="size-8">
+            <AppIcon />
+          </div>
           <DialogTitle>Nuevo Enlace</DialogTitle>
         </DialogHeader>
 

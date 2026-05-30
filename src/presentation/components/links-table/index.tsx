@@ -4,7 +4,6 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { LinkIcon } from 'lucide-react';
 
 import { columns } from './columns';
 import {
@@ -24,6 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/presentation/components/ui/table';
+import { AppIcon } from '../icons/app-icon';
 
 interface Props {
   links: LinkWithTags[];
@@ -87,8 +87,8 @@ export function LinksTable({ links }: Props) {
                   className="h-24 text-center"
                 >
                   <div className="flex flex-col items-center gap-2">
-                    <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
-                      <LinkIcon />
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center">
+                      <AppIcon />
                     </div>
                     <p className="text-muted-foreground">
                       No tienes ningún enlace todavía

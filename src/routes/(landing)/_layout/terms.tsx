@@ -1,7 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { FileText, LinkIcon, AlertTriangle } from 'lucide-react';
-
-import { Button } from '@/presentation/components/ui/button';
+import { FileText, AlertTriangle } from 'lucide-react';
 
 export const Route = createFileRoute('/(landing)/_layout/terms')({
   component: RouteComponent,
@@ -228,18 +226,6 @@ function RouteComponent() {
             fecha indefinida.
           </p>
         </section>
-      </div>
-
-      {/* Back button */}
-      <div className="mt-12 pt-6 border-t border-border/50">
-        <Button
-          variant="outline"
-          nativeButton={false}
-          render={(props) => <Link to="/" {...props} />}
-        >
-          <LinkIcon data-icon="inline-start" />
-          Volver al inicio
-        </Button>
       </div>
     </div>
   );
