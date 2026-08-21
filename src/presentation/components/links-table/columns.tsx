@@ -1,35 +1,34 @@
-import { createColumnHelper } from '@tanstack/react-table';
-import { ChartSpline } from 'lucide-react';
+import { createColumnHelper } from '@tanstack/react-table'
+import { ChartSpline } from 'lucide-react'
 
-import type { LinkWithTags } from '@/integrations/db/schemas/links.schema';
-import { hashColorFromSlug } from '@/lib/tag-utils';
+import type { LinkWithTags } from '@/integrations/db/schemas/links.schema'
+import { features } from './index'
+import { LinkTableActions } from './actions'
+import { Button } from '@/presentation/components/ui/button'
+import { Badge } from '@/presentation/components/ui/badge'
+import { SlugCell } from '@/presentation/components/links-table/cells'
 
-import { LinkTableActions } from './actions';
-import { Button } from '@/presentation/components/ui/button';
-import { Badge } from '@/presentation/components/ui/badge';
-import { SlugCell } from '@/presentation/components/links-table/cells';
+export const columnHelper = createColumnHelper<typeof features, LinkWithTags>()
 
-export const columnHelper = createColumnHelper<LinkWithTags>();
-
-export const columns = [
+export const columns = columnHelper.columns([
   columnHelper.accessor((t) => t.slug, {
     id: 'slug',
     header: 'Slug',
     cell: (info) => {
-      const slug = info.getValue();
-      const customSlug = info.row.original.customSlug;
-      const isActive = info.row.original.isActive;
+      const slug = info.getValue()
+      const customSlug = info.row.original.customSlug
+      const isActive = info.row.original.isActive
 
       return (
         <SlugCell slug={slug} customSlug={customSlug} isActive={isActive} />
-      );
+      )
     },
   }),
   columnHelper.accessor((t) => t.url, {
     id: 'url',
     header: 'Url destino',
     cell: (info) => {
-      const url = info.getValue();
+      const url = info.getValue()
 
       return (
         <a
@@ -40,7 +39,7 @@ export const columns = [
         >
           {url}
         </a>
-      );
+      )
     },
   }),
   columnHelper.accessor((t) => t.clicks, {
@@ -52,28 +51,25 @@ export const columns = [
     id: 'tags',
     header: 'Tags',
     cell: (info) => {
-      const linkTags = info.getValue();
-      if (!linkTags || linkTags.length === 0) return null;
+      const linkTags = info.getValue()
+      if (!linkTags || linkTags.length === 0) return null
 
       return (
         <div className="flex gap-1 flex-wrap">
           {linkTags.map((lt) => (
-            <Badge
-              key={lt.tag.id}
-              style={{ backgroundColor: lt.tag.color }}
-            >
+            <Badge key={lt.tag.id} style={{ backgroundColor: lt.tag.color }}>
               {lt.tag.name}
             </Badge>
           ))}
         </div>
-      );
+      )
     },
   }),
   columnHelper.accessor((t) => t.isActive, {
     id: 'isActive',
     header: 'Estado',
     cell: (info) => {
-      const isActive = info.getValue();
+      const isActive = info.getValue()
 
       return (
         <>
@@ -89,7 +85,7 @@ export const columns = [
             </Badge>
           )}
         </>
-      );
+      )
     },
   }),
   columnHelper.display({
@@ -112,4 +108,4 @@ export const columns = [
       </div>
     ),
   }),
-];
+])

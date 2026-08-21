@@ -1,7 +1,7 @@
 import {
-  flexRender,
-  createCoreRowModel,
-  getPaginationRowModel,
+  createPaginatedRowModel,
+  rowPaginationFeature,
+  tableFeatures,
   useTable,
 } from '@tanstack/react-table'
 
@@ -25,20 +25,24 @@ import {
 } from '@/presentation/components/ui/table'
 import { AppIcon } from '../icons/app-icon'
 
+export const features = tableFeatures({
+  rowPaginationFeature,
+  paginatedRowModel: createPaginatedRowModel(),
+})
+
 interface Props {
   links: LinkWithTags[]
 }
 
 export function LinksTable({ links }: Props) {
-  const table = useReactTable({
+  const table = useTable({
+    features,
     columns,
     data: links,
     getRowId: (row) => row.id,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
   })
 
-  const pageIndex = table.getState().pagination.pageIndex
+  const pageIndex = table.state.pagination.pageIndex
   const pageCount = table.getPageCount()
 
   return (
@@ -51,12 +55,9 @@ export function LinksTable({ links }: Props) {
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                      {header.isPlaceholder ? null : (
+                        <table.FlexRender header={header} />
+                      )}
                     </TableHead>
                   )
                 })}
@@ -66,16 +67,10 @@ export function LinksTable({ links }: Props) {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
-                  {row.getVisibleCells().map((cell) => (
+                <TableRow key={row.id}>
+                  {row.getAllCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
+                      <table.FlexRender cell={cell} />
                     </TableCell>
                   ))}
                 </TableRow>
@@ -105,7 +100,7 @@ export function LinksTable({ links }: Props) {
       <div className="flex items-start justify-between px-2 py-4">
         <div className="flex gap-1 flex-col">
           <PageSize
-            pageSize={table.getState().pagination.pageSize}
+            pageSize={table.state.pagination.pageSize}
             setPageSize={(size) => table.setPageSize(size)}
           />
           <div className="text-sm text-muted-foreground">
