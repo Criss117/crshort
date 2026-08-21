@@ -1,0 +1,91 @@
+import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
+import { Suspense } from 'react';
+
+import { ToogleThemeButton } from '@/presentation/components/toogle-theme';
+import { getSessionQueryOptions } from '@/application/queries/auth.queries';
+import {
+  SignUpDialog,
+  SignUpDialogSkeleton,
+} from '@/presentation/components/sign-up-dialog';
+import { AppIcon } from '@/presentation/components/icons/app-icon';
+
+export const Route = createFileRoute('/(landing)/_layout')({
+  component: RouteComponent,
+  beforeLoad: async ({ context }) => {
+    context.queryClient.prefetchQuery(getSessionQueryOptions);
+  },
+});
+
+function RouteComponent() {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <header className="sticky top-0 bg-background/80 z-50 backdrop-blur-md">
+        <div className="flex items-center justify-between px-6 py-4 max-w-6xl mx-auto">
+          <Link to="/" className="flex items-center gap-2">
+            <div className="size-9 rounded-full flex items-center justify-center">
+              <AppIcon />
+            </div>
+            <span className="font-bold text-lg tracking-tight">crshort</span>
+          </Link>
+          <nav className="flex items-center gap-4">
+            <Link
+              to="/features"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
+            >
+              Funciones
+            </Link>
+            <Link
+              to="/how-its-works"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
+            >
+              Cómo funciona
+            </Link>
+            <Suspense fallback={<SignUpDialogSkeleton />}>
+              <SignUpDialog />
+            </Suspense>
+            <div>
+              <ToogleThemeButton />
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <main className="px-6 max-w-6xl mx-auto flex-1 flex flex-col">
+        <Outlet />
+      </main>
+
+      <footer className="border-t border-border/50 px-6 py-8">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <Link to="/" className="flex items-center gap-2">
+            <div className="size-8 rounded-full flex items-center justify-center">
+              <AppIcon />
+            </div>
+            <span className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} crshort.com
+            </span>
+          </Link>
+          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <Link
+              to="/terms"
+              className="hover:text-foreground transition-colors"
+            >
+              Términos
+            </Link>
+            <Link
+              to="/privacy"
+              className="hover:text-foreground transition-colors"
+            >
+              Privacidad
+            </Link>
+            <Link
+              to="/contact"
+              className="hover:text-foreground transition-colors"
+            >
+              Contacto
+            </Link>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
