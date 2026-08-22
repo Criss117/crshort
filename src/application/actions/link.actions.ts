@@ -2,12 +2,7 @@ import { createServerFn } from '@tanstack/react-start';
 import { and, desc, eq, inArray, ne, or, sql } from 'drizzle-orm';
 
 import { db } from '@/integrations/db';
-import {
-  link,
-  linkTag,
-  tag,
-  type LinkWithTags,
-} from '@/integrations/db/schemas/links.schema';
+import { link, linkTag, tag } from '@/integrations/db/schemas/links.schema';
 import { prepareTagData } from '@/lib/tag-utils';
 
 import {
@@ -19,7 +14,7 @@ import { requiredAuthMiddleware } from '@/application/actions/middlewares';
 
 export const createLinkAction = createServerFn()
   .middleware([requiredAuthMiddleware])
-  .inputValidator(createLinkValidator)
+  .validator(createLinkValidator)
   .handler(async ({ context, data }) => {
     const user = context.session.user;
 
@@ -64,7 +59,7 @@ export const createLinkAction = createServerFn()
 
       for (const tagData of tags) {
         // Case-insensitive lookup via LOWER(slug)
-        const [existingTag] = await tx
+        const existingTags = await tx
           .select()
           .from(tag)
           .where(
@@ -76,6 +71,9 @@ export const createLinkAction = createServerFn()
           .limit(1);
 
         let tagId: string;
+
+        const existingTag = existingTags.at(0);
+
         if (existingTag) {
           tagId = existingTag.id;
         } else {
@@ -120,12 +118,12 @@ export const findAllLinksAction = createServerFn()
       },
     });
 
-    return links as unknown as LinkWithTags[];
+    return links;
   });
 
 export const deleteManyLinksAction = createServerFn()
   .middleware([requiredAuthMiddleware])
-  .inputValidator(deleteLinksValidator)
+  .validator(deleteLinksValidator)
   .handler(async ({ context, data }) => {
     const user = context.session.user;
 
@@ -142,7 +140,7 @@ export const deleteManyLinksAction = createServerFn()
 
 export const disableManyLinksAction = createServerFn()
   .middleware([requiredAuthMiddleware])
-  .inputValidator(deleteLinksValidator)
+  .validator(deleteLinksValidator)
   .handler(async ({ context, data }) => {
     const user = context.session.user;
 
@@ -162,7 +160,7 @@ export const disableManyLinksAction = createServerFn()
 
 export const enableManyLinksAction = createServerFn()
   .middleware([requiredAuthMiddleware])
-  .inputValidator(deleteLinksValidator)
+  .validator(deleteLinksValidator)
   .handler(async ({ context, data }) => {
     const user = context.session.user;
 
@@ -182,7 +180,7 @@ export const enableManyLinksAction = createServerFn()
 
 export const updateCustomSlugAction = createServerFn()
   .middleware([requiredAuthMiddleware])
-  .inputValidator(updateCustomSlugValidator)
+  .validator(updateCustomSlugValidator)
   .handler(async ({ context, data }) => {
     const user = context.session.user;
 

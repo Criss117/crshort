@@ -3,7 +3,7 @@ import { createServerFn } from '@tanstack/react-start';
 import { contactValidator } from '@/application/validators/contact.validators';
 
 export const submitContactForm = createServerFn()
-  .inputValidator(contactValidator)
+  .validator(contactValidator)
   .handler(async () => {
     return {
       success: true,

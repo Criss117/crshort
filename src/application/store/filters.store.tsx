@@ -60,7 +60,7 @@ export function filtersReducer(state: Filters, action: Actions) {
         group: GroupBy.all,
         tag: '',
       };
-    case 'set:group':
+    case 'set:group': {
       if (!Object.values(GroupBy).includes(action.payload as GroupByType))
         return state;
 
@@ -70,6 +70,7 @@ export function filtersReducer(state: Filters, action: Actions) {
         ...state,
         group,
       };
+    }
     case 'reset:group':
       return {
         ...state,
