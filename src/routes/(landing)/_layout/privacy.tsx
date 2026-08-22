@@ -34,11 +34,9 @@ function RouteComponent() {
             Aviso de transparencia
           </p>
           <p>
-            Esta no es una política de privacidad seria. Es la política de un
-            proyecto personal que usa cookies de analytics porque... todos las
-            usan, ¿no? Si viniste aquí buscando GDPR compliance de nivel
-            enterprise, wrong place. Pero al menos te dimos el aviso. Eso
-            cuenta, ¿verdad? 🤔
+            Esta es la política de un proyecto personal. Intentamos explicar de
+            forma clara qué datos necesitamos para que el servicio funcione y
+            cómo protegemos tu privacidad.
           </p>
         </div>
       </div>
@@ -66,19 +64,19 @@ function RouteComponent() {
               cuántos clics tiene tu enlace de "gato funny video".
             </li>
             <li>
-              <strong>Datos de uso:</strong> Cuándo creaste enlaces, cuándo
-              hicieron clic, y cosas técnicas tipo browser y IP. Sí, tenemos tu
-              IP. Bienvenid@ al internet.
+              <strong>Datos de analytics de enlaces:</strong> Cuando alguien
+              visita un enlace corto, registramos la fecha y hora, el tipo de
+              dispositivo, el sitio de procedencia (referrer) y la ubicación
+              aproximada (país y ciudad, cuando está disponible). También
+              generamos un hash SHA-256 de la IP usando un salt. No almacenamos
+              la dirección IP original.
             </li>
             <li>
-              <strong>Cookies:</strong> Un poco de magia digital para mantener
-              la sesión activa y analytics básicos.
+              <strong>Cookies:</strong> Usamos cookies esenciales para mantener
+              tu sesión activa. No usamos cookies de analytics ni tecnologías
+              de tracking del lado del cliente.
             </li>
           </ul>
-          <p className="mt-3 text-sm text-muted-foreground">
-            <strong>TODO:</strong> Especificar qué datos exactos coleta
-            analytics (Google Analytics, Plausible, etc.)
-          </p>
         </section>
 
         <section className="mb-8">
@@ -89,8 +87,8 @@ function RouteComponent() {
             <li>Mostrarte tus estadísticas de clics</li>
             <li>Enviarte emails si olvidas tu contraseña</li>
             <li>
-              Analytics para saber si alguien realmente usa esto (o solo somos
-              nosotros probando)
+              Generar estadísticas agregadas de tus enlaces, como clics por
+              día, país, ciudad, dispositivo y sitio de procedencia
             </li>
           </ul>
           <p className="mt-2">
@@ -109,8 +107,8 @@ function RouteComponent() {
         <section className="mb-8">
           <h2>3. Cookies</h2>
           <p>
-            Usamos cookies. Lo sé, lo sé, GDPR esto, CCPA aquello, banner de
-            cookies por todas partes. Pero hey, son necesarias:
+            Solo usamos cookies esenciales, necesarias para mantener tu sesión
+            activa y permitirte iniciar sesión:
           </p>
           <ul>
             <li>
@@ -119,18 +117,32 @@ function RouteComponent() {
               depende de ellas.
             </li>
             <li>
-              <strong>Cookies de analytics:</strong> Para saber cuántas personas
-              usan el servicio. Spoiler: a veces solo somos una. 👋
+              <strong>Sin cookies de analytics:</strong> Las estadísticas de
+              enlaces se recopilan en el servidor cuando se visita un enlace
+              corto. No usamos cookies ni identificadores de analytics en tu
+              navegador.
             </li>
           </ul>
-          <p className="mt-3 text-sm text-muted-foreground">
-            <strong>TODO:</strong> Implementar banner de cookies, permitir
-            rechazo de cookies no esenciales, documentar opciones disponibles
+        </section>
+
+        <section className="mb-8">
+          <h2>4. Retención de analytics</h2>
+          <p>
+            Conservamos los registros de clics durante un máximo de{' '}
+            <strong>365 días</strong>. Después de ese plazo, se eliminan
+            automáticamente. Esta retención nos permite mostrar tendencias
+            útiles sin conservar indefinidamente datos técnicos de las visitas.
+          </p>
+          <p className="mt-2">
+            La recopilación y el procesamiento de estos datos ocurren
+            exclusivamente en el servidor. El hash de IP se usa para ayudar a
+            distinguir visitas sin guardar la IP original, y no puede
+            revertirse para obtenerla.
           </p>
         </section>
 
         <section className="mb-8">
-          <h2>4. Tus derechos</h2>
+          <h2>5. Tus derechos</h2>
           <p>
             Porque somos buena gente (o al menos lo intentamos). Tienes derecho
             a:
@@ -149,11 +161,9 @@ function RouteComponent() {
               otro lugar, te los damos. Son tuyos, después de todo.
             </li>
             <li>
-              <strong>Opt-out de analytics:</strong>{' '}
-              <strong className="text-muted-foreground">TODO:</strong>
-              <span className="text-muted-foreground">
-                Implementar mecanismo para rechazar tracking
-              </span>
+              <strong>Información sobre analytics:</strong> Preguntarnos qué
+              datos de analytics están asociados a tus enlaces y solicitar su
+              eliminación cuando corresponda.
             </li>
           </ul>
           <p className="mt-2">
@@ -163,7 +173,7 @@ function RouteComponent() {
         </section>
 
         <section className="mb-8">
-          <h2>5. Almacenamiento y seguridad</h2>
+          <h2>6. Almacenamiento y seguridad</h2>
           <p>
             Tus datos están en la nube, como todos. Específicamente en{' '}
             <strong>especificar proveedor</strong>. Hacemos lo posible por
@@ -184,7 +194,7 @@ function RouteComponent() {
         </section>
 
         <section className="mb-8">
-          <h2>6. Links a terceros</h2>
+          <h2>7. Links a terceros</h2>
           <p>
             Cuando haces clic en un enlace acortado, vas a otro website.
             Nosotros no controlamos esos websites. Su privacidad es su problema.
@@ -199,20 +209,16 @@ function RouteComponent() {
         </section>
 
         <section className="mb-8">
-          <h2>7. Cambios a esta política</h2>
+          <h2>8. Cambios a esta política</h2>
           <p>
             Si cambiamos cosas (porque podemos), te lo avisaremos.
             Probablemente. Actualizaremos la fecha de "última actualización"
             para que sepas que algo cambió.
           </p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            <strong>TODO:</strong> Definir proceso de notificación de cambios,
-            cómo comunicaremos updates significativos
-          </p>
         </section>
 
         <section className="mb-8">
-          <h2>8. Contacto</h2>
+          <h2>9. Contacto</h2>
           <p>
             ¿Preguntas sobre privacidad? ¿Te descubriste pensando "wow, esta
             gente realmente se tomó el tiempo de escribir una política de
@@ -228,7 +234,7 @@ function RouteComponent() {
         </section>
 
         <section className="mb-8">
-          <h2>9. El disclaimer final</h2>
+          <h2>10. El disclaimer final</h2>
           <p>
             Esta política de privacidad fue escrita con la mejor combinación de
             seriedad legal y humor de programador. No es vinculante para nadie
