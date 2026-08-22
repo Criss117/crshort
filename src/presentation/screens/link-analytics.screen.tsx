@@ -1,15 +1,18 @@
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, SettingsIcon } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 
 import type { LinkWithTags } from '@/integrations/db/schemas/links.schema';
 import { AnalyticsDashboard } from '@/presentation/components/analytics/analytics-dashboard';
+import { EditCustomSlugDialog } from '@/presentation/components/edit-custom-slug-dialog';
 import { Button } from '@/presentation/components/ui/button';
+import { EditCustomSlugDialogProvider, useEditCustomSlugDialog } from '@/presentation/contexts/edit-custom-slug-dialog';
 
 interface Props {
   link: LinkWithTags;
 }
 
-export function LinkAnalyticsScreen({ link }: Props) {
+function LinkAnalyticsContent({ link }: Props) {
+  const { open } = useEditCustomSlugDialog();
   const shortUrl = `${window.location.origin}/r/${link.customSlug ?? link.slug}`;
 
   return (
@@ -23,14 +26,24 @@ export function LinkAnalyticsScreen({ link }: Props) {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
             Analíticas del enlace
           </p>
-          <a
-            className="mt-1 text-3xl font-semibold tracking-tight underline"
-            href={shortUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {link.customSlug ?? link.slug}
-          </a>
+          <div className="mt-1 flex items-center gap-3">
+            <a
+              className="text-3xl font-semibold tracking-tight underline"
+              href={shortUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {link.customSlug ?? link.slug}
+            </a>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => open(link.id)}
+              aria-label="Editar slug"
+            >
+              <SettingsIcon />
+            </Button>
+          </div>
           {link.customSlug ? (
             <p className="mt-1 text-sm text-muted-foreground">
               Slug: <span className="font-mono">{link.slug}</span>
@@ -49,6 +62,17 @@ export function LinkAnalyticsScreen({ link }: Props) {
         </div>
       </div>
       <AnalyticsDashboard linkId={link.id} />
+      <EditCustomSlugDialog
+        links={[{ id: link.id, url: link.url, customSlug: link.customSlug, slug: link.slug }]}
+      />
     </main>
+  );
+}
+
+export function LinkAnalyticsScreen({ link }: Props) {
+  return (
+    <EditCustomSlugDialogProvider>
+      <LinkAnalyticsContent link={link} />
+    </EditCustomSlugDialogProvider>
   );
 }
