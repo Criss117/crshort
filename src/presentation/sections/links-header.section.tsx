@@ -27,8 +27,8 @@ export function LinksHeaderSection({ links }: Props) {
   const averageClicks = links.length > 0 ? Math.round(totalClicks / links.length) : 0;
 
   return (
-    <div className="mb-8 space-y-8">
-      <section className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+    <div className="mb-8 space-y-4">
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <Card>
           <CardContent className="flex items-center gap-3">
             <div className="size-10 bg-accent/10 rounded-full flex items-center justify-center">
@@ -64,7 +64,9 @@ export function LinksHeaderSection({ links }: Props) {
             </div>
           </CardContent>
         </Card>
+      </section>
 
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <StatCard
           icon={<Award />}
           label="Link con más clics"
