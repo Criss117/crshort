@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function LinkAnalyticsScreen({ link }: Props) {
-  const displaySlug = link.customSlug ?? link.slug;
+  const shortUrl = `${window.location.origin}/${link.customSlug ?? link.slug}`;
 
   return (
     <main className="px-4 py-8 sm:px-6 lg:px-8">
@@ -24,10 +24,32 @@ export function LinkAnalyticsScreen({ link }: Props) {
             Analíticas del enlace
           </p>
           <h1 className="mt-1 text-3xl font-semibold tracking-tight">
-            {displaySlug}
+            {link.customSlug ?? link.slug}
           </h1>
+          {link.customSlug ? (
+            <p className="mt-1 text-sm text-muted-foreground">
+              Slug: <span className="font-mono">{link.slug}</span>
+            </p>
+          ) : null}
           <p className="mt-1 truncate text-sm text-muted-foreground">
-            {link.url}
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-foreground transition-colors"
+            >
+              {link.url}
+            </a>
+          </p>
+          <p className="mt-1 text-sm">
+            <a
+              href={shortUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline underline-offset-2 hover:opacity-80 transition-opacity font-mono"
+            >
+              {shortUrl}
+            </a>
           </p>
         </div>
       </div>
