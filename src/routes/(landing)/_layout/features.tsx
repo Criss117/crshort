@@ -9,7 +9,6 @@ import {
   Shield,
   SunMoon,
   Tags,
-  Trash2,
   ToggleLeft,
 } from 'lucide-react';
 
@@ -72,7 +71,7 @@ function RouteComponent() {
           <FeatureCard
             icon={KeyRound}
             title="Autenticación"
-            description="Puedes entrar con Google, GitHub o email y contraseña mediante Better Auth. Tres caminos para llegar al mismo dashboard, porque elegir uno era demasiado fácil."
+            description="Puedes entrar con GitHub o email y contraseña mediante Better Auth. Dos caminos para llegar al mismo dashboard, porque elegir uno era demasiado fácil."
           />
           <FeatureCard
             icon={SunMoon}

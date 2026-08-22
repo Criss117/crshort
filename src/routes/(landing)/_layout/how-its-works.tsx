@@ -30,7 +30,7 @@ function RouteComponent() {
       <section aria-label="Pasos para usar crshort" className="mx-auto max-w-5xl">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-stretch lg:gap-2">
           <Step number="1" title="Crear cuenta (o no)">
-            Inicia sesión con Google, GitHub o email, aunque también puedes
+            Inicia sesión con GitHub o email, aunque también puedes
             probar sin cuenta. No vamos a convertir el registro en una prueba de
             carácter.
           </Step>
