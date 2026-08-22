@@ -65,6 +65,8 @@ export function TimeSeriesChart({ data }: Props) {
                 contentStyle={{
                   borderRadius: 8,
                   border: '1px solid var(--border)',
+                  backgroundColor: 'var(--popover)',
+                  color: 'var(--popover-foreground)',
                 }}
               />
               <Line

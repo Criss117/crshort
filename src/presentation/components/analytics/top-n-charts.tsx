@@ -66,6 +66,8 @@ function RankingChart({
                 contentStyle={{
                   borderRadius: 8,
                   border: '1px solid var(--border)',
+                  backgroundColor: 'var(--popover)',
+                  color: 'var(--popover-foreground)',
                 }}
               />
               <Bar
