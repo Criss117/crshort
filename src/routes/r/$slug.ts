@@ -3,6 +3,7 @@ import { and, eq, or, sql } from 'drizzle-orm';
 
 import { db } from '@/integrations/db';
 import { link } from '@/integrations/db/schemas/links.schema';
+import { captureClickEvent } from '@/application/services/click-capture.service';
 import { serverEnv } from '@/lib/config/server';
 
 async function updateLinkStats(id: string) {
@@ -18,7 +19,7 @@ async function updateLinkStats(id: string) {
 export const Route = createFileRoute('/r/$slug')({
   server: {
     handlers: {
-      GET: async ({ params }) => {
+      GET: async ({ params, request }) => {
         const slug = params.slug;
         const path = serverEnv.BETTER_AUTH_URL;
 
@@ -48,6 +49,7 @@ export const Route = createFileRoute('/r/$slug')({
         }
 
         void updateLinkStats(completeLink.id);
+        void captureClickEvent({ linkId: completeLink.id, request });
 
         return new Response(null, {
           status: 302,

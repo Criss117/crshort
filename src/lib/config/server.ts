@@ -12,5 +12,8 @@ export const serverEnv = createEnv({
 
     GITHUB_CLIENT_ID: z.string(),
     GITHUB_CLIENT_SECRET: z.string(),
+
+    CLICK_IP_SALT: z.string().min(32),
+    GEOIP_DB_PATH: z.string().optional(),
   },
 });
