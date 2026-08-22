@@ -104,7 +104,7 @@ export function AnalyticsDashboard({ links }: Props) {
           </CardContent>
         </Card>
       ) : null}
-      {query.isSuccess && totalClicks > 0 ? (
+      {query.isSuccess && totalClicks > 0 && data ? (
         <>
           <TimeSeriesChart data={zeroFill(data.timeSeries, range)} />
           <TopNCharts

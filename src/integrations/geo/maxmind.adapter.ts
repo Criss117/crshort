@@ -25,7 +25,9 @@ export class MaxMindGeoIpProvider implements GeoIpProvider {
         return null;
       }
 
-      const cityName = Reflect.get(result.city.names, 'en');
+      const cityName = result.city?.names
+        ? Reflect.get(result.city.names, 'en')
+        : null;
 
       return {
         countryCode: result.country.iso_code,

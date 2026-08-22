@@ -132,9 +132,10 @@ export const clickEvents = sqliteTable(
       .notNull(),
   },
   (t) => [
-    index('click_events_link_created_at_idx').on(t.linkId, t.createdAt),
-    index('click_events_created_at_idx').on(t.createdAt),
-    index('click_events_country_idx').on(t.countryCode),
+    index('click_events_link_clicked_at_idx').on(t.linkId, t.clickedAt),
+    index('click_events_clicked_at_idx').on(t.clickedAt),
+    index('click_events_link_country_idx').on(t.linkId, t.countryCode),
+    index('click_events_link_device_type_idx').on(t.linkId, t.deviceType),
     check(
       'click_events_device_type_check',
       sql`${t.deviceType} in ('desktop', 'mobile', 'tablet', 'bot', 'unknown')`,
