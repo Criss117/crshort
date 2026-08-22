@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
+import { RefreshCw } from 'lucide-react';
 import { useState } from 'react';
 
 import { findLinkAnalyticsAction } from '@/server/functions/analytics.functions';
+import { Button } from '@/presentation/components/ui/button';
 import { Card, CardContent } from '@/presentation/components/ui/card';
 import { Skeleton } from '@/presentation/components/ui/skeleton';
 import { DateRangePicker, getLastThirtyDays } from './date-range-picker';
@@ -62,6 +64,15 @@ export function AnalyticsDashboard({ linkId }: Props) {
         </div>
         <div className="flex flex-wrap items-end gap-3">
           <DateRangePicker value={range} onChange={setRange} />
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => query.refetch()}
+            disabled={query.isFetching}
+            aria-label="Actualizar datos"
+          >
+            <RefreshCw className={query.isFetching ? 'animate-spin' : ''} />
+          </Button>
         </div>
       </div>
 
