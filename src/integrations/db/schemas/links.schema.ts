@@ -106,6 +106,42 @@ export const linkTag = sqliteTable(
   ],
 );
 
+export const clickEvents = sqliteTable(
+  'click_events',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v7()),
+    linkId: text('link_id')
+      .notNull()
+      .references(() => link.id, {
+        onDelete: 'cascade',
+      }),
+    clickedAt: integer('clicked_at', { mode: 'timestamp_ms' })
+      .default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
+      .notNull(),
+    hashedIp: text('hashed_ip', { length: 64 }).notNull(),
+    userAgent: text('user_agent'),
+    deviceType: text('device_type').default('unknown').notNull(),
+    referrer: text('referrer', { length: 2048 }),
+    referrerHost: text('referrer_host', { length: 253 }),
+    countryCode: text('country_code', { length: 2 }),
+    city: text('city'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
+      .notNull(),
+  },
+  (t) => [
+    index('click_events_link_created_at_idx').on(t.linkId, t.createdAt),
+    index('click_events_created_at_idx').on(t.createdAt),
+    index('click_events_country_idx').on(t.countryCode),
+    check(
+      'click_events_device_type_check',
+      sql`${t.deviceType} in ('desktop', 'mobile', 'tablet', 'bot', 'unknown')`,
+    ),
+  ],
+);
+
 // ── Relations ────────────────────────────────────────────────
 
 export const tagRelations = relations(tag, ({ many }) => ({
@@ -125,6 +161,14 @@ export const linkTagRelations = relations(linkTag, ({ one }) => ({
 
 export const linkRelations = relations(link, ({ many }) => ({
   linkTags: many(linkTag),
+  clickEvents: many(clickEvents),
+}));
+
+export const clickEventsRelations = relations(clickEvents, ({ one }) => ({
+  link: one(link, {
+    fields: [clickEvents.linkId],
+    references: [link.id],
+  }),
 }));
 
 // ── Types ────────────────────────────────────────────────────
@@ -132,10 +176,12 @@ export const linkRelations = relations(link, ({ many }) => ({
 export type LinkSelect = typeof link.$inferSelect;
 export type TagSelect = typeof tag.$inferSelect;
 export type LinkTagSelect = typeof linkTag.$inferSelect;
+export type ClickEventSelect = typeof clickEvents.$inferSelect;
 
 export type LinkInsert = typeof link.$inferInsert;
 export type TagInsert = typeof tag.$inferInsert;
 export type LinkTagInsert = typeof linkTag.$inferInsert;
+export type ClickEventInsert = typeof clickEvents.$inferInsert;
 
 /** Link with nested tags loaded via Drizzle relations */
 export type LinkWithTags = LinkSelect & {
