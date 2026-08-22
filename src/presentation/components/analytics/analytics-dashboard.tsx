@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import { findLinkAnalyticsAction } from '@/server/functions/analytics.functions';
-import type { LinkSelect } from '@/integrations/db/schemas/links.schema';
 import { Card, CardContent } from '@/presentation/components/ui/card';
 import { Skeleton } from '@/presentation/components/ui/skeleton';
 import { DateRangePicker, getLastThirtyDays } from './date-range-picker';
@@ -20,30 +19,25 @@ interface AnalyticsResponse {
 }
 
 interface Props {
-  links: LinkSelect[];
+  linkId: string;
 }
 
-export function AnalyticsDashboard({ links }: Props) {
-  const [selectedLinkId, setSelectedLinkId] = useState(links.at(0)?.id ?? '');
+export function AnalyticsDashboard({ linkId }: Props) {
   const [range, setRange] = useState<DateRange>(getLastThirtyDays);
-  const selectedLink =
-    links.find((link) => link.id === selectedLinkId) ?? links.at(0);
 
   const query = useQuery({
-    queryKey: ['link-analytics', selectedLink?.id, range.from, range.to],
+    queryKey: ['link-analytics', linkId, range.from, range.to],
     queryFn: () =>
       findLinkAnalyticsAction({
         data: {
-          linkId: selectedLink?.id ?? '',
+          linkId,
           from: range.from,
           to: range.to,
         },
       }) as Promise<AnalyticsResponse>,
-    enabled: Boolean(selectedLink),
+    enabled: Boolean(linkId),
     staleTime: 60_000,
   });
-
-  if (!selectedLink) return null;
 
   const data = query.data;
   const totalClicks =
@@ -67,20 +61,6 @@ export function AnalyticsDashboard({ links }: Props) {
           </p>
         </div>
         <div className="flex flex-wrap items-end gap-3">
-          <label className="grid gap-1 text-xs text-muted-foreground">
-            Enlace
-            <select
-              value={selectedLink.id}
-              onChange={(event) => setSelectedLinkId(event.target.value)}
-              className="h-8 rounded-lg border border-input bg-background px-2.5 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-            >
-              {links.map((link) => (
-                <option key={link.id} value={link.id}>
-                  {link.customSlug ?? link.slug}
-                </option>
-              ))}
-            </select>
-          </label>
           <DateRangePicker value={range} onChange={setRange} />
         </div>
       </div>

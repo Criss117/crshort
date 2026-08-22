@@ -21,6 +21,7 @@ import { Route as landingLayoutTermsRouteImport } from './routes/(landing)/_layo
 import { Route as privateDashboardIndexRouteImport } from './routes/(private)/dashboard/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as landingLayoutAuthSignInRouteImport } from './routes/(landing)/_layout/auth/sign-in'
+import { Route as privateDashboardLinksLinkIdRouteImport } from './routes/(private)/dashboard/links/$linkId'
 
 const landingLayoutRoute = landingLayoutRouteImport.update({
   id: '/(landing)/_layout',
@@ -82,6 +83,12 @@ const landingLayoutAuthSignInRoute = landingLayoutAuthSignInRouteImport.update({
   path: '/auth/sign-in',
   getParentRoute: () => landingLayoutRoute,
 } as any)
+const privateDashboardLinksLinkIdRoute =
+  privateDashboardLinksLinkIdRouteImport.update({
+    id: '/links/$linkId',
+    path: '/links/$linkId',
+    getParentRoute: () => privateDashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/dashboard': typeof privateDashboardRouteWithChildren
@@ -95,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/': typeof landingLayoutIndexRoute
   '/dashboard/': typeof privateDashboardIndexRoute
   '/auth/sign-in': typeof landingLayoutAuthSignInRoute
+  '/dashboard/links/$linkId': typeof privateDashboardLinksLinkIdRoute
 }
 export interface FileRoutesByTo {
   '/r/$slug': typeof RSlugRoute
@@ -107,6 +115,7 @@ export interface FileRoutesByTo {
   '/': typeof landingLayoutIndexRoute
   '/dashboard': typeof privateDashboardIndexRoute
   '/auth/sign-in': typeof landingLayoutAuthSignInRoute
+  '/dashboard/links/$linkId': typeof privateDashboardLinksLinkIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -122,6 +131,7 @@ export interface FileRoutesById {
   '/(landing)/_layout/': typeof landingLayoutIndexRoute
   '/(private)/dashboard/': typeof privateDashboardIndexRoute
   '/(landing)/_layout/auth/sign-in': typeof landingLayoutAuthSignInRoute
+  '/(private)/dashboard/links/$linkId': typeof privateDashboardLinksLinkIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard/'
     | '/auth/sign-in'
+    | '/dashboard/links/$linkId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/r/$slug'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/auth/sign-in'
+    | '/dashboard/links/$linkId'
   id:
     | '__root__'
     | '/(landing)/_layout'
@@ -163,6 +175,7 @@ export interface FileRouteTypes {
     | '/(landing)/_layout/'
     | '/(private)/dashboard/'
     | '/(landing)/_layout/auth/sign-in'
+    | '/(private)/dashboard/links/$linkId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -258,6 +271,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof landingLayoutAuthSignInRouteImport
       parentRoute: typeof landingLayoutRoute
     }
+    '/(private)/dashboard/links/$linkId': {
+      id: '/(private)/dashboard/links/$linkId'
+      path: '/links/$linkId'
+      fullPath: '/dashboard/links/$linkId'
+      preLoaderRoute: typeof privateDashboardLinksLinkIdRouteImport
+      parentRoute: typeof privateDashboardRoute
+    }
   }
 }
 
@@ -287,10 +307,12 @@ const landingLayoutRouteWithChildren = landingLayoutRoute._addFileChildren(
 
 interface privateDashboardRouteChildren {
   privateDashboardIndexRoute: typeof privateDashboardIndexRoute
+  privateDashboardLinksLinkIdRoute: typeof privateDashboardLinksLinkIdRoute
 }
 
 const privateDashboardRouteChildren: privateDashboardRouteChildren = {
   privateDashboardIndexRoute: privateDashboardIndexRoute,
+  privateDashboardLinksLinkIdRoute: privateDashboardLinksLinkIdRoute,
 }
 
 const privateDashboardRouteWithChildren =

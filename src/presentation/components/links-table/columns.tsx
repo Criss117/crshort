@@ -1,8 +1,9 @@
+import { Link } from '@tanstack/react-router'
 import { createColumnHelper } from '@tanstack/react-table'
 import { ChartSpline } from 'lucide-react'
 
 import type { LinkWithTags } from '@/integrations/db/schemas/links.schema'
-import { features } from './index'
+import type { features } from './index'
 import { LinkTableActions } from './actions'
 import { Button } from '@/presentation/components/ui/button'
 import { Badge } from '@/presentation/components/ui/badge'
@@ -52,7 +53,7 @@ export const columns = columnHelper.columns([
     header: 'Tags',
     cell: (info) => {
       const linkTags = info.getValue()
-      if (!linkTags || linkTags.length === 0) return null
+       if (linkTags.length === 0) return null
 
       return (
         <div className="flex gap-1 flex-wrap">
@@ -97,13 +98,20 @@ export const columns = columnHelper.columns([
     ),
     cell: ({ row }) => (
       <div className="flex items-center justify-end gap-1">
-        <Button
-          className="p-2 hover:bg-muted rounded-lg transition-colors"
-          variant="ghost"
-          size="icon"
+        <Link
+          to="/dashboard/links/$linkId"
+          params={{ linkId: row.original.id }}
+          aria-label={`Ver analíticas de ${row.original.customSlug ?? row.original.slug}`}
+          className="inline-flex"
         >
-          <ChartSpline />
-        </Button>
+          <Button
+            className="p-2 hover:bg-muted rounded-lg transition-colors"
+            variant="ghost"
+            size="icon"
+          >
+            <ChartSpline />
+          </Button>
+        </Link>
         <LinkTableActions link={row.original} />
       </div>
     ),

@@ -11,6 +11,7 @@ import {
   updateCustomSlugValidator,
 } from '@/application/validators/link.validators';
 import { requiredAuthMiddleware } from '@/application/actions/middlewares';
+import { linkOwnershipValidator } from '@/lib/validators/analytics.validator';
 
 export const createLinkAction = createServerFn()
   .middleware([requiredAuthMiddleware])
@@ -119,6 +120,28 @@ export const findAllLinksAction = createServerFn()
     });
 
     return links;
+  });
+
+export const findLinkByIdAction = createServerFn()
+  .middleware([requiredAuthMiddleware])
+  .validator(linkOwnershipValidator)
+  .handler(async ({ context, data }) => {
+    const user = context.session.user;
+
+    const result = await db.query.link.findFirst({
+      where: and(eq(link.id, data.linkId), eq(link.userId, user.id)),
+      with: {
+        linkTags: {
+          with: {
+            tag: true,
+          },
+        },
+      },
+    });
+
+    if (!result) throw new Error('Link not found');
+
+    return result;
   });
 
 export const deleteManyLinksAction = createServerFn()
