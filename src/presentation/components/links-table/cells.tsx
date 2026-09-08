@@ -1,5 +1,6 @@
 import { cn, shortUrl } from '@/lib/utils';
 import { CopyButton } from '../copy-button';
+import { QrCodeButton } from '../qr-code-button';
 
 type SlugCellProps = {
   slug: string;
@@ -73,6 +74,7 @@ export function SlugCell({ slug, customSlug, isActive }: SlugCellProps) {
     <div className="flex items-center gap-2">
       {slugContent}
       <CopyButton text={shortUrl(activeSlug)} isDisabled={!isActive} />
+      <QrCodeButton value={shortUrl(activeSlug)} isDisabled={!isActive} />
     </div>
   );
 }

@@ -2,10 +2,15 @@ import { ArrowLeft, SettingsIcon } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 
 import type { LinkWithTags } from '@/integrations/db/schemas/links.schema';
+import { shortUrl } from '@/lib/utils';
 import { AnalyticsDashboard } from '@/presentation/components/analytics/analytics-dashboard';
 import { EditCustomSlugDialog } from '@/presentation/components/edit-custom-slug-dialog';
+import { QrCodeButton } from '@/presentation/components/qr-code-button';
 import { Button } from '@/presentation/components/ui/button';
-import { EditCustomSlugDialogProvider, useEditCustomSlugDialog } from '@/presentation/contexts/edit-custom-slug-dialog';
+import {
+  EditCustomSlugDialogProvider,
+  useEditCustomSlugDialog,
+} from '@/presentation/contexts/edit-custom-slug-dialog';
 
 interface Props {
   link: LinkWithTags;
@@ -13,7 +18,7 @@ interface Props {
 
 function LinkAnalyticsContent({ link }: Props) {
   const { open } = useEditCustomSlugDialog();
-  const shortUrl = `${window.location.origin}/r/${link.customSlug ?? link.slug}`;
+  const shortUrlValue = shortUrl(link.customSlug ?? link.slug);
 
   return (
     <main className="px-4 py-8 sm:px-6 lg:px-8">
@@ -29,12 +34,13 @@ function LinkAnalyticsContent({ link }: Props) {
           <div className="mt-1 flex items-center gap-3">
             <a
               className="text-3xl font-semibold tracking-tight underline"
-              href={shortUrl}
+              href={shortUrlValue}
               target="_blank"
               rel="noopener noreferrer"
             >
               {link.customSlug ?? link.slug}
             </a>
+            <QrCodeButton value={shortUrlValue} isDisabled={!link.isActive} />
             <Button
               variant="outline"
               size="icon"
@@ -63,7 +69,14 @@ function LinkAnalyticsContent({ link }: Props) {
       </div>
       <AnalyticsDashboard linkId={link.id} />
       <EditCustomSlugDialog
-        links={[{ id: link.id, url: link.url, customSlug: link.customSlug, slug: link.slug }]}
+        links={[
+          {
+            id: link.id,
+            url: link.url,
+            customSlug: link.customSlug,
+            slug: link.slug,
+          },
+        ]}
       />
     </main>
   );

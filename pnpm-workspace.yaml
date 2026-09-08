@@ -4,3 +4,7 @@ allowBuilds:
   sharp: true
   better-sqlite3: true
   unrs-resolver: false
+minimumReleaseAgeExclude:
+  - '@rolldown/plugin-babel@0.2.4'
+  - '@types/node@26.5.0'
+  - lucide-react@1.42.0
