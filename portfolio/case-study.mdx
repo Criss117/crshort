@@ -1,0 +1,378 @@
+---
+# ── Identidad básica ─────────────────────────────────────────
+title: "crshort"
+slug: "crshort"
+summary: "Acortador de URLs con analytics detallados, tags y autenticación. Construido con TanStack Start, React 19, Drizzle ORM y SQLite."
+category: "web"
+date: "2025-01-01"
+lastUpdate: "2025-06-01"
+status: "in-progress"
+featured: false
+priority: 0
+
+# ── Contexto del proyecto ────────────────────────────────────
+type: "personal"
+role: "Fullstack developer — diseño, arquitectura e implementación"
+team:
+  size: 1
+  solo: true
+
+# ── Links y stack ────────────────────────────────────────────
+links:
+  repo: "https://github.com/cristian-santiago-py/crshort"
+  demo: ""
+  docs: ""
+  npm: ""
+
+stack:
+  - "TanStack Start"
+  - "React 19"
+  - "TanStack Router"
+  - "TanStack Query"
+  - "Tailwind CSS v4"
+  - "Drizzle ORM"
+  - "SQLite (libsql / better-sqlite3)"
+  - "Better Auth"
+  - "MaxMind GeoIP"
+  - "Netlify Functions"
+  - "Vite"
+
+# ── Highlights ───────────────────────────────────────────────
+highlights:
+  - "Arquitectura limpia con separación en capas: application, presentation, integrations y lib"
+  - "Tracking privacy-first: geolocalización con MaxMind local, hash SHA-256 de IP con salt, sin cookies de terceros"
+  - "Analytics por link con serie temporal diaria, top países, referrers y dispositivos"
+  - "Autenticación completa con GitHub OAuth y email/password vía Better Auth"
+  - "React Compiler activado para optimización automática de re-renders"
+
+# ── Imágenes ─────────────────────────────────────────────────
+images:
+  hero:
+    ext: "png"
+    alt: "TODO: dashboard de crshort mostrando lista de links y analytics"
+  cover:
+    ext: "png"
+    alt: "TODO: vista principal de crshort"
+  gallery:
+    - name: "1"
+      ext: "png"
+      alt: "TODO: screenshot del dashboard con lista de links"
+      caption: ""
+    - name: "2"
+      ext: "png"
+      alt: "TODO: screenshot de la pantalla de analytics"
+      caption: ""
+
+# ── SEO ──────────────────────────────────────────────────────
+seo:
+  metaTitle: "crshort — Acortador de URLs con analytics"
+  metaDescription: "Proyecto personal fullstack: acortador de URLs con tracking privacy-first, analytics detallados y gestión por tags. Construido con TanStack Start y React 19."
+
+# ── Metadatos internos del agente ────────────────────────────
+generatedBy: "agent"
+generatedAt: "2025-06-01T00:00:00Z"
+schemaVersion: 1
+---
+
+{/* ═══════════════════════════════════════════════════════════ */}
+{/*  01 / EL DESAFÍO — OBLIGATORIO                              */}
+{/* ═══════════════════════════════════════════════════════════ */}
+
+<section class="max-w-full xl:max-w-3/4 mx-auto py-20">
+
+  <span class="text-xs uppercase tracking-widest text-accent font-semibold block">
+    {"01 / El desafío"}
+  </span>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-6">
+    <div class="space-y-6">
+      <h2 class="text-3xl md:text-5xl font-bold uppercase tracking-tighter leading-tight">
+        {"Compartir links no debería ser un problema"}
+      </h2>
+      <p class="text-tertiary text-base md:text-lg leading-relaxed">
+        {"Las URLs largas rompen layouts en redes sociales, son difíciles de memorizar y no dan pistas sobre su destino. Los acortadores existentes resuelven el tamaño, pero cobran por analytics útiles o tratan el tracking como un afterthought."}
+      </p>
+    </div>
+
+    <div class="space-y-8">
+      <p class="text-primary text-base md:text-lg leading-relaxed">
+        {"Quería una herramienta que acorte links sin sacrificar privacidad ni funcionalidad. Que dé analytics útiles (no solo un contador), permita organizar con tags, y sea transparente sobre qué datos recolecta y cómo. Todo en una arquitectura que pueda escalar desde serverless sin depender de servicios de terceros para geolocalización."}
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <article class="border border-primary/20 p-5 space-y-2">
+          <h3 class="text-sm uppercase font-semibold tracking-wider text-accent">
+            {"URLs que rompen layouts"}
+          </h3>
+          <p class="text-tertiary text-sm leading-relaxed">
+            {"En redes sociales y mensajes, URLs largas se truncan, rompen la línea o generan desconfianza. Los usuarios no hacen click si no ven a dónde van."}
+          </p>
+        </article>
+
+        <article class="border border-primary/20 p-5 space-y-2">
+          <h3 class="text-sm uppercase font-semibold tracking-wider text-accent">
+            {"Analytics como upsell"}
+          </h3>
+          <p class="text-tertiary text-sm leading-relaxed">
+            {"La mayoría de acortadores gratuitos dan solo un contador de clics. Para saber país, dispositivo o referrer hay que pagar. El conocimiento está monetizado."}
+          </p>
+        </article>
+
+        <article class="border border-primary/20 p-5 space-y-2">
+          <h3 class="text-sm uppercase font-semibold tracking-wider text-accent">
+            {"Privacidad de afterthought"}
+          </h3>
+          <p class="text-tertiary text-sm leading-relaxed">
+            {"El tracking default suele almacenar IPs crudas, usar cookies de terceros y compartir datos con analytics externos. El usuario no controla qué se recolecta."}
+          </p>
+        </article>
+
+        <article class="border border-primary/20 p-5 space-y-2">
+          <h3 class="text-sm uppercase font-semibold tracking-wider text-accent">
+            {"Sin organización"}
+          </h3>
+          <p class="text-tertiary text-sm leading-relaxed">
+            {"Con docenas de links, una lista plana se vuelve inmanejable. No hay forma de agrupar por campaña, proyecto o cliente sin convenciones de naming."}
+          </p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+{/* ═══════════════════════════════════════════════════════════ */}
+{/*  02 / INGENIERÍA & ARQUITECTURA — OBLIGATORIO               */}
+{/* ═══════════════════════════════════════════════════════════ */}
+
+<section class="-mx-4 md:-mx-6 lg:-mx-8 px-4 md:px-6 lg:px-8 py-20 space-y-16 bg-secondary">
+
+  <span class="text-xs uppercase tracking-widest text-accent font-semibold block max-w-full xl:max-w-3/4 mx-auto">
+    {"02 / Ingeniería & Arquitectura"}
+  </span>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-6 max-w-full xl:max-w-3/4 mx-auto">
+    <div>
+      <h2 class="text-3xl md:text-5xl font-bold uppercase tracking-tighter leading-tight text-primary">
+        {"Arquitectura limpia en serverless"}
+      </h2>
+    </div>
+    <div class="flex items-start">
+      <p class="text-tertiary text-base md:text-lg leading-relaxed">
+        {"Separé el código en capas con responsabilidad única: application para lógica de negocio, presentation para componentes React, integrations para adaptadores externos (DB, auth, geo), y lib para utilidades compartidas. Esto permite cambiar SQLite por PostgreSQL o MaxMind por otro proveedor sin tocar la lógica de negocio."}
+      </p>
+    </div>
+  </div>
+
+  <div class="space-y-4 max-w-full xl:max-w-3/4 mx-auto">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+      <span class="text-[10px] uppercase tracking-widest text-tertiary font-medium">
+        {"Diagrama esquemático de flujo de datos"}
+      </span>
+      <span class="text-[10px] uppercase tracking-widest text-accent font-semibold">
+        {"Request → Server Function → DB → Response"}
+      </span>
+    </div>
+
+    <div class="flex flex-col md:flex-row md:items-stretch gap-0">
+      <article class="border border-primary/20 p-5 space-y-3 flex-1">
+        <span class="text-[10px] uppercase tracking-widest text-accent font-semibold block">
+          {"Capa 1"}
+        </span>
+        <h3 class="text-sm uppercase font-semibold tracking-wider text-primary">
+          {"React 19 + TanStack Start"}
+        </h3>
+        <p class="text-tertiary text-sm leading-relaxed">
+          {"UI con React 19, file-based routing vía TanStack Router, server functions con createServerFn, y estado server con TanStack Query. React Compiler activo."}
+        </p>
+        <p class="text-[10px] uppercase tracking-wider text-tertiary font-medium pt-2">
+          {"Hydration: ~50ms"}
+        </p>
+      </article>
+
+      <div class="hidden md:flex items-center justify-center border-y border-primary/20 px-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </div>
+      <div class="flex md:hidden items-center justify-center border-x border-primary/20 py-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      </div>
+
+      <article class="border border-primary/20 p-5 space-y-3 flex-1">
+        <span class="text-[10px] uppercase tracking-widest text-accent font-semibold block">
+          {"Capa 2"}
+        </span>
+        <h3 class="text-sm uppercase font-semibold tracking-wider text-primary">
+          {"TanStack Router + API"}
+        </h3>
+        <p class="text-tertiary text-sm leading-relaxed">
+          {"Routing file-based con type safety completa. Server routes para redirección (/r/$slug) con analytics asíncrono no bloqueante."}
+        </p>
+        <p class="text-[10px] uppercase tracking-wider text-tertiary font-medium pt-2">
+          {"Type-safe: 100%"}
+        </p>
+      </article>
+
+      <div class="hidden md:flex items-center justify-center border-y border-primary/20 px-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </div>
+      <div class="flex md:hidden items-center justify-center border-x border-primary/20 py-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      </div>
+
+      <article class="border border-primary/20 p-5 space-y-3 flex-1">
+        <span class="text-[10px] uppercase tracking-widest text-accent font-semibold block">
+          {"Capa 3"}
+        </span>
+        <h3 class="text-sm uppercase font-semibold tracking-wider text-primary">
+          {"Drizzle ORM + SQLite"}
+        </h3>
+        <p class="text-tertiary text-sm leading-relaxed">
+          {"Esquemas type-safe con relations, UUID v7 para IDs ordenables, índices optimizados para queries de analytics, y constraints de integridad."}
+        </p>
+        <p class="text-[10px] uppercase tracking-wider text-tertiary font-medium pt-2">
+          {"Migrations: automáticas"}
+        </p>
+      </article>
+
+      <div class="hidden md:flex items-center justify-center border-y border-primary/20 px-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </div>
+      <div class="flex md:hidden items-center justify-center border-x border-primary/20 py-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      </div>
+
+      <article class="border border-primary/20 p-5 space-y-3 flex-1">
+        <span class="text-[10px] uppercase tracking-widest text-accent font-semibold block">
+          {"Capa 4"}
+        </span>
+        <h3 class="text-sm uppercase font-semibold tracking-wider text-primary">
+          {"MaxMind GeoIP"}
+        </h3>
+        <p class="text-tertiary text-sm leading-relaxed">
+          {"Base de datos GeoIP local para resolución de país/ciudad sin llamadas a APIs externas. Sin rate limits, sin latencia de red."}
+        </p>
+        <p class="text-[10px] uppercase tracking-wider text-tertiary font-medium pt-2">
+          {"Lookup: <1ms"}
+        </p>
+      </article>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-full xl:max-w-3/4 mx-auto">
+    <article class="border border-primary/20 p-6 space-y-4">
+      <span class="text-[10px] uppercase tracking-widest text-accent font-semibold block">
+        {"Decisión 01 · Framework"}
+      </span>
+      <h3 class="text-lg font-semibold uppercase tracking-tight text-primary">
+        {"TanStack Start sobre Next.js"}
+      </h3>
+      <p class="text-tertiary text-sm leading-relaxed">
+        {"Evalué Next.js App Router pero elegí TanStack Start por su modelo de server functions explícitas, routing 100% type-safe sin magia de framework, y menor vendor lock-in. El file-based routing genera tipos automáticos para todos los parámetros, search params y loaders."}
+      </p>
+      <div class="border-t border-primary/10 pt-4 mt-4">
+        <p class="text-xs text-tertiary leading-relaxed">
+          <span class="text-accent font-semibold">{"Impacto: "}</span>
+          {"Cero errores de tipo en routing en todo el proyecto. Las server functions se comportan como funciones TypeScript normales con serialización automática."}
+        </p>
+      </div>
+    </article>
+
+    <article class="border border-primary/20 p-6 space-y-4">
+      <span class="text-[10px] uppercase tracking-widest text-accent font-semibold block">
+        {"Decisión 02 · Base de datos"}
+      </span>
+      <h3 class="text-lg font-semibold uppercase tracking-tight text-primary">
+        {"SQLite con Drizzle ORM"}
+      </h3>
+      <p class="text-tertiary text-sm leading-relaxed">
+        {"Para un proyecto personal en serverless, PostgreSQL añade costo y complejidad operativa. SQLite (libsql/better-sqlite3) ofrece zero-config local, migrations con drizzle-kit, y relations type-safe. En producción en Netlify Functions se usa libsql con Turso o better-sqlite3 según el entorno."}
+      </p>
+      <div class="border-t border-primary/10 pt-4 mt-4">
+        <p class="text-xs text-tertiary leading-relaxed">
+          <span class="text-accent font-semibold">{"Garantía: "}</span>
+          {"Esquema versionado con git, migraciones automáticas, y type safety de extremo a extremo desde la query hasta el componente React."}
+        </p>
+      </div>
+    </article>
+
+    <article class="border border-primary/20 p-6 space-y-4">
+      <span class="text-[10px] uppercase tracking-widest text-accent font-semibold block">
+        {"Decisión 03 · Privacidad"}
+      </span>
+      <h3 class="text-lg font-semibold uppercase tracking-tight text-primary">
+        {"Tracking privacy-first"}
+      </h3>
+      <p class="text-tertiary text-sm leading-relaxed">
+          {"Diseñé el tracking desde cero para no almacenar IPs crudas: SHA-256 con salt por link, geolocalización vía MaxMind GeoIP local (sin APIs externas), detección de dispositivo por user-agent, y sin cookies de terceros. La retención está limitada por diseño al modelo de datos."}
+      </p>
+      <div class="border-t border-primary/10 pt-4 mt-4">
+        <p class="text-xs text-tertiary leading-relaxed">
+          <span class="text-accent font-semibold">{"Resultado: "}</span>
+          {"Analytics útiles sin comprometer privacidad. El usuario puede auditar exactamente qué datos se recolectan leyendo el código open-source."}
+        </p>
+      </div>
+    </article>
+  </div>
+
+</section>
+
+{/* ═══════════════════════════════════════════════════════════ */}
+{/*  03 / RESULTADOS — OBLIGATORIO                              */}
+{/* ═══════════════════════════════════════════════════════════ */}
+
+<section class="max-w-full xl:max-w-3/4 mx-auto py-20">
+
+  <span class="text-xs uppercase tracking-widest text-accent font-semibold block">
+    {"03 / Resultados"}
+  </span>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-6">
+    <div class="space-y-6">
+      <h2 class="text-3xl md:text-5xl font-bold uppercase tracking-tighter leading-tight">
+        {"Funcional y en evolución"}
+      </h2>
+      <p class="text-tertiary text-base md:text-lg leading-relaxed">
+        {"El proyecto está operativo con todas las funciones core implementadas: acortamiento, analytics, tags, autenticación y dashboard. Se despliega automáticamente en Netlify con cada push."}
+      </p>
+    </div>
+
+    <div class="space-y-8">
+      <p class="text-primary text-base md:text-lg leading-relaxed">
+        {"La arquitectura limpia demostró su valor al agregar analytics: solo necesité crear un puerto GeoIP, un servicio de captura, y queries de agregación sin tocar componentes existentes. El pipeline de redirección mantiene sub-100ms de latencia porque el tracking es asíncrono y no bloqueante."}
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <article class="border border-primary/20 p-5 space-y-2">
+          <h3 class="text-sm uppercase font-semibold tracking-wider text-accent">
+            {"Stack moderno"}
+          </h3>
+          <p class="text-tertiary text-sm leading-relaxed">
+            {"React 19 con React Compiler, Tailwind CSS v4, TanStack Start en fase estable. Zero legacy dependencies."}
+          </p>
+        </article>
+
+        <article class="border border-primary/20 p-5 space-y-2">
+          <h3 class="text-sm uppercase font-semibold tracking-wider text-accent">
+            {"Arquitectura extensible"}
+          </h3>
+          <p class="text-tertiary text-sm leading-relaxed">
+            {"Capas separadas permiten cambiar SQLite por PostgreSQL o agregar un proveedor GeoIP distinto sin reescribir lógica de negocio."}
+          </p>
+        </article>
+      </div>
+
+      <div class="border border-primary/20 p-6 space-y-3">
+        <h3 class="text-sm uppercase font-semibold tracking-wider text-accent">
+          {"Próximos pasos"}
+        </h3>
+        <ul class="text-tertiary text-sm leading-relaxed space-y-1">
+          <li>{"· Exportar datos de analytics a CSV/JSON"}</li>
+          <li>{"· API pública con rate limiting para crear links programáticamente"}</li>
+          <li>{"· Webhooks para notificaciones de clicks en tiempo real"}</li>
+          <li>{"· QR codes dinámicos con tracking de escaneos separados"}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</section>

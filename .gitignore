@@ -18,3 +18,5 @@ todos.json
 *.db
 *db-shm
 *db-wal
+# Local Pi runtime state
+.atl/
